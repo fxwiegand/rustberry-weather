@@ -93,9 +93,10 @@
            }
 
            $(document).ready(function () {
-               window.setInterval(function(){
-                   getValues();
-               }, 5000);
+               // window.setInterval(function(){
+               //     getValues();
+               // }, 5000);
+               getValues();
            });
        </script>
 
