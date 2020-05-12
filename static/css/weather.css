@@ -1,0 +1,37 @@
+.min {
+    min-height: 400px;
+}
+
+.main {
+    min-height: 800px;
+}
+
+.padding {
+    padding: 2rem;
+}
+
+.sidebar {
+    color: white;
+    padding-top: 10rem;
+    background: #1e5799;
+    background: -moz-linear-gradient(top, #1e5799 0%, #85b6d9 0%, #749cd1 100%);
+    background: -webkit-linear-gradient(top, #1e5799 0%,#85b6d9 0%,#749cd1 100%);
+    background: linear-gradient(to bottom, #1e5799 0%,#85b6d9 0%,#749cd1 100%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#1e5799', endColorstr='#749cd1',GradientType=0 );
+}
+
+.margin-top {
+    margin-top: 3rem;
+}
+
+.border-top {
+    border-top: 1px solid #eeeeee;
+}
+
+.border-right {
+    border-right: 1px solid #eeeeee;
+}
+
+sup {
+    top: -.3em;
+}
