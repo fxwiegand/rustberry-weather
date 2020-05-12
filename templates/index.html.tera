@@ -11,7 +11,8 @@
 
        <script>
            function getValues() {
-               $.get({
+               $.ajax({
+                   type: 'GET',
                    url: 'http://localhost:8000/api/v1/current/',
                    success: function (data) {
                        console.log(data);
