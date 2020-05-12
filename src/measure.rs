@@ -12,7 +12,7 @@ pub(crate) struct Measurement {
 
 pub(crate) fn make_measurement() -> Measurement {
     let i2c_bus = I2cdev::new("/dev/i2c-1").unwrap();
-    let mut bme280 = BME280::new_secondary(i2c_bus, Delay);
+    let mut bme280 = BME280::new_primary(i2c_bus, Delay);
     bme280.init().unwrap();
 
     let measurements = bme280.measure().unwrap();
