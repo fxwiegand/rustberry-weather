@@ -9,5 +9,11 @@ edition = "2018"
 [dependencies]
 bme280 = "0.2.1"
 linux-embedded-hal = "0.3.0"
-rocket = "0.4.4"
+rocket = { git = "https://github.com/SergioBenitez/Rocket"}
 tera = "1.2.0"
+clap = "2.33.0"
+
+[dependencies.rocket_contrib]
+git = "https://github.com/SergioBenitez/Rocket"
+default-features = false
+features = ["serve","tera_templates"]
