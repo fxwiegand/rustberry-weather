@@ -1,6 +1,7 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
 #[macro_use] extern crate rocket;
+#[macro_use] extern crate serde;
 
 extern crate linux_embedded_hal as hal;
 extern crate rocket_contrib;
@@ -10,11 +11,25 @@ extern crate tera;
 use bme280::BME280;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
+use rocket_contrib::json::Json;
 use clap::{App, SubCommand, ArgMatches};
 use tera::{Tera, Context};
 use std::collections::HashMap;
+use measure::{Measurement, make_measurement};
 
 mod measure;
+
+#[get("/current")]
+fn current() -> Json<Measurement> {
+    let response = make_measurement();
+    Json(response)
+}
+
+/*#[get("/average/")]
+fn average() -> Json<Measurement> {
+    // Read from Database and calculate average values
+    Json(response)
+}*/
 
 #[get("/")]
 fn index() -> Template {
@@ -41,6 +56,7 @@ fn main() {
             rocket::ignite()
                 .mount("/",  StaticFiles::from("static"))
                 .mount("/", routes![index])
+                .mount("/api/v1", routes![current])
                 .attach(Template::fairing())
                 .launch();
         },

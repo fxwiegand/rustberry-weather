@@ -1032,6 +1032,7 @@ dependencies = [
  "linux-embedded-hal",
  "rocket",
  "rocket_contrib",
+ "serde",
  "tera",
 ]
 
@@ -1085,6 +1086,9 @@ name = "serde"
 version = "1.0.110"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "99e7b308464d16b56eba9964e4972a3eee817760ab60d88c3f86e1fecb08204c"
+dependencies = [
+ "serde_derive",
+]
 
 [[package]]
 name = "serde_derive"

@@ -2,14 +2,15 @@ use hal::{Delay, I2cdev};
 use bme280::BME280;
 use std::time::SystemTime;
 
-struct Measurement {
+#[derive(Serialize, Clone, Debug)]
+pub(crate) struct Measurement {
     humidity: f32,
     temperature: f32,
     pressure: f32,
     time: SystemTime,
 }
 
-fn make_measurement() -> Measurement {
+pub(crate) fn make_measurement() -> Measurement {
     let i2c_bus = I2cdev::new("/dev/i2c-1").unwrap();
     let mut bme280 = BME280::new_secondary(i2c_bus, Delay);
     bme280.init().unwrap();
