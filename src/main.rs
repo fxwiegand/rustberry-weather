@@ -21,7 +21,7 @@ fn index() -> Template {
     let mut context: HashMap<&str , Vec<()>> = HashMap::new();
     //context.insert();
 
-    Template::render("report", &context)
+    Template::render("index", &context)
 }
 
 fn main() {
