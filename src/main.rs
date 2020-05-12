@@ -41,6 +41,7 @@ fn main() {
             rocket::ignite()
                 .mount("/",  StaticFiles::from("static"))
                 .mount("/", routes![index])
+                .attach(Template::fairing())
                 .launch();
         },
         None        => println!("Try using a subcommand. Type help for more."),
