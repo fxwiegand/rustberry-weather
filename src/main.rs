@@ -40,7 +40,7 @@ fn main() {
         Some("server") => {
             rocket::ignite()
                 .mount("/",  StaticFiles::from("static"))
-                .mount("/api/v1", routes![index])
+                .mount("/", routes![index])
                 .launch();
         },
         None        => println!("Try using a subcommand. Type help for more."),
