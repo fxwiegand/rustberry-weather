@@ -26,7 +26,15 @@
                         <span id="current_hmdt">3</span>
                         g/m<sup>3</sup>
                     </h1>
-                    <h3>Teilweise bewölkt</h3>
+                    <h1>
+                        <i class="fal fa-tachometer"></i>
+                        <span id="current_pressure">3</span>
+                        g/m<sup>3</sup>
+                    </h1>
+                    <h3>
+                        Teilweise bewölkt
+                        <i class="fal fa-cloud-sun"></i>
+                    </h3>
                     <div class="row margin-top">
                         <div class="col-6">
                             <h3>
@@ -89,6 +97,7 @@
                        //value = JSON.parse(data);
                        $('#current_temp').html(data.temperature);
                        $('#current_hmdt').html(data.humidity);
+                       $('#current_pressure').html(data.pressure);
                    },
                    error: function (xhr, ajaxOptions, thrownError){
                        alert('error!');
