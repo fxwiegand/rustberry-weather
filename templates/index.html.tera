@@ -29,7 +29,7 @@
                     <h1>
                         <i class="fal fa-tachometer"></i>
                         <span id="current_pressure">3</span>
-                        g/m<sup>3</sup>
+                        hPa
                     </h1>
                     <h3>
                         Teilweise bewölkt
