@@ -81,7 +81,7 @@
            function getValues() {
                $.ajax({
                    type: 'GET',
-                   url: 'http://0.0.0.0:8000/api/v1/current/',
+                   url: 'http://ubuntu.fritz.box:8000/api/v1/current/',
                    success: function (data) {
                        console.log(data);
                        //value = JSON.parse(data);
