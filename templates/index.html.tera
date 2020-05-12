@@ -82,9 +82,9 @@
                    url: 'http://ubuntu.fritz.box:8000/api/v1/current/',
                    success: function (data) {
                        console.log(data);
-                       value = JSON.parse(data);
-                       $('#current_temp').html(value.temperature);
-                       $('#current_temp').html(value.humidity);
+                       //value = JSON.parse(data);
+                       $('#current_temp').html(data.temperature);
+                       $('#current_temp').html(data.humidity);
                    },
                    error: function (xhr, ajaxOptions, thrownError){
                        alert('error!');
