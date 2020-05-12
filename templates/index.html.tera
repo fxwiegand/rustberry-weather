@@ -8,6 +8,9 @@
        <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+       <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
+       <script src="https://cdn.jsdelivr.net/npm/vega-lite@4"></script>
+       <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
 
    </head>
 
@@ -67,7 +70,7 @@
                     <div class="row min">
                         <div class="col-12 padding">
                             <h2 class="text-center">Temperatur je Stunde</h2>
-
+                            <div id="temp-vis"></div>
                         </div>
                     </div>
 
@@ -88,28 +91,43 @@
             </div>
         </div>
         <script>
-           function getValues() {
-               $.ajax({
-                   type: 'GET',
-                   url: 'http://ubuntu.fritz.box:8000/api/v1/current/',
-                   success: function (data) {
+            function fetchVegaSpecs() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://ubuntu.fritz.box:8000/vega-lite/vlSpecs',
+                    success: function (data) {
+                        return data
+                    },
+                    error: function (xhr, ajaxOptions, thrownError){
+                        alert('error!');
+                    }
+                });
+            }
+
+
+            function getValues() {
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://ubuntu.fritz.box:8000/api/v1/current/',
+                    success: function (data) {
                        console.log(data);
                        //value = JSON.parse(data);
                        $('#current_temp').html(data.temperature);
                        $('#current_hmdt').html(data.humidity);
                        $('#current_pressure').html(data.pressure);
-                   },
-                   error: function (xhr, ajaxOptions, thrownError){
+                    },
+                    error: function (xhr, ajaxOptions, thrownError){
                        alert('error!');
-                   }
+                    }
                 });
-           }
+            }
 
-           $(document).ready(function () {
+            $(document).ready(function () {
+               vegaEmbed('#temp-vis', fetchVegaSpecs());
                window.setInterval(function(){
                    getValues();
                }, 5000);
-           });
+            });
        </script>
 
    </body>
