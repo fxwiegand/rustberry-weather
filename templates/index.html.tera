@@ -110,11 +110,11 @@
                     type: 'GET',
                     url: 'http://ubuntu.fritz.box:8000/api/v1/current/',
                     success: function (data) {
-                       console.log(data);
                        //value = JSON.parse(data);
                        $('#current_temp').html(data.temperature);
                        $('#current_hmdt').html(data.humidity);
                        $('#current_pressure').html(data.pressure);
+                       return data
                     },
                     error: function (xhr, ajaxOptions, thrownError){
                        alert('error!');
@@ -123,9 +123,10 @@
             }
 
             $(document).ready(function () {
-               vegaEmbed('#temp-vis', fetchVegaSpecs());
+               let v = vegaEmbed('#temp-vis', fetchVegaSpecs());
                window.setInterval(function(){
-                   getValues();
+                   let data = getValues();
+                   v.view.insert("temperature", data)
                }, 5000);
             });
        </script>
