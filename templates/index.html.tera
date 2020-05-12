@@ -19,6 +19,8 @@
                     <h1>
                         <i class="fal fa-thermometer-half"></i>
                         <span id="current_temp">3</span><sup>&deg;C</sup>
+                    </h1>
+                    <h1>
                         <i class="fal fa-humidity"></i>
                         <span id="current_hmdt">3</span>g/m<sup>3</sup>
                     </h1>
@@ -79,12 +81,12 @@
            function getValues() {
                $.ajax({
                    type: 'GET',
-                   url: 'http://ubuntu.fritz.box:8000/api/v1/current/',
+                   url: 'http://0.0.0.0:8000/api/v1/current/',
                    success: function (data) {
                        console.log(data);
                        //value = JSON.parse(data);
                        $('#current_temp').html(data.temperature);
-                       $('#current_temp').html(data.humidity);
+                       $('#current_hmdt').html(data.humidity);
                    },
                    error: function (xhr, ajaxOptions, thrownError){
                        alert('error!');
@@ -93,10 +95,9 @@
            }
 
            $(document).ready(function () {
-               // window.setInterval(function(){
-               //     getValues();
-               // }, 5000);
-               getValues();
+               window.setInterval(function(){
+                   getValues();
+               }, 5000);
            });
        </script>
 
