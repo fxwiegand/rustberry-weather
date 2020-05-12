@@ -18,11 +18,13 @@
                 <div class="col-3 sidebar padding">
                     <h1>
                         <i class="fal fa-thermometer-half"></i>
-                        <span id="current_temp">3</span><sup>&deg;C</sup>
+                        <span id="current_temp">3
+                        </span><sup>&deg;C</sup>
                     </h1>
                     <h1>
                         <i class="fal fa-humidity"></i>
-                        <span id="current_hmdt">3</span>g/m<sup>3</sup>
+                        <span id="current_hmdt">3</span>
+                        g/m<sup>3</sup>
                     </h1>
                     <h3>Teilweise bewölkt</h3>
                     <div class="row margin-top">
