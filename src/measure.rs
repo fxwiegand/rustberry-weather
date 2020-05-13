@@ -18,11 +18,14 @@ pub(crate) struct Measurement {
 fn bme280_mockup() -> Measurement {
     let datetime: DateTime<Local> = Local::now();
     let mut rng = rand::thread_rng();
+    let h = rng.gen_range(30.0, 60.0) as f32;
+    let t = rng.gen_range(0.0, 30.0) as f32;
+    let p = rng.gen_range(950.0, 1050.0) as f32;
 
     let m1 = Measurement {
-        humidity: rng.gen_range(30.0, 60.0).round() as f32,
-        temperature: rng.gen_range(0.0, 30.0).round() as f32,
-        pressure: rng.gen_range(950.0, 1050.0).round() as f32,
+        humidity: h.round(),
+        temperature: t.round(),
+        pressure: p.round(),
         time: datetime.format("%Y-%m-%d %H:%M:%S").to_string(),
         time_de: datetime.formatl("%a, %d. %B %Y %H:%M:%S", "de").to_string(),
     };
