@@ -95,7 +95,7 @@
                 $('#current_temp').html(data.temperature);
                 $('#current_hmdt').html(data.humidity);
                 $('#current_pressure').html(data.pressure);
-                $('#timestamp').html(data.time);
+                $('#timestamp').html(data.time_de);
             }
 
             async function buildVega() {
