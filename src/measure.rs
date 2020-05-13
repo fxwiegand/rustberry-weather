@@ -1,3 +1,4 @@
+extern crate chrono;
 use chrono::offset::Utc;
 use chrono::DateTime;
 use hal::{Delay, I2cdev};
