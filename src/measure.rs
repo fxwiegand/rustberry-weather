@@ -28,7 +28,7 @@ pub(crate) fn make_measurement() -> Measurement {
         temperature: measurements.temperature,
         pressure: measurements.pressure,
         //time: now,
-        time: datetime.formatl("%a, %d. %B %Y %H:%M:%S", "en").to_string()
+        time: datetime.formatl("%a, %d %B %Y %H:%M:%S", "en").to_string()
     };
 
     measurement

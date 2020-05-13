@@ -7,7 +7,7 @@
     "name": "temperature",
     "format": {
       "parse": {
-        "time": "utc:'%a, %d. %B %Y %H:%M:%S'"
+        "time": "utc:'%a, %d %B %Y %H:%M:%S'"
       }
     }
   },
@@ -15,7 +15,7 @@
   "encoding": {
     "x": {
       "field": "time",
-      "timeUnit": "utcyearmonthdatehoursminutes",
+      "timeUnit": "utcyearmonthdatehoursminutesseconds",
       "type": "temporal",
       "scale": {
         "type": "utc"

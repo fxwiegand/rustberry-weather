@@ -97,8 +97,7 @@
                 console.log(measurements);
                 vg = vg.view.insert('temperature', measurements);
 
-                vg.addEventListener('click', async function(event, item) {
-                    console.log('click');
+                vg.addEventListener('timer{5000}', async function(event, item) {
                     let upd = await fetchMeasurements();
                     console.log(upd);
                     vg.change('temperature', vega.changeset().insert(upd).remove(function (d) {
