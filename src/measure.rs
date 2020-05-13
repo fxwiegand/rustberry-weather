@@ -1,7 +1,7 @@
 use hal::{Delay, I2cdev};
 use bme280::BME280;
 use std::time::SystemTime;
-use chrono::{DateTime, Utc};
+use chrono::DateTime;
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
