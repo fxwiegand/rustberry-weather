@@ -4,7 +4,12 @@
   "width": 600,
   "height": 250,
   "data": {
-    "name": "temperature"
+    "name": "temperature",
+    "format": {
+      "parse": {
+        "time": "utc:'%a %d. %b %Y %H:%M:%S'"
+      }
+    }
   },
   "mark": "line",
   "encoding": {
