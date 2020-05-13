@@ -92,7 +92,7 @@
         </div>
         <script>
             function fetchVegaSpecs() {
-                $.getJSON('employee.json', function(data) {
+                $.getJSON('/vega-lite/vlSpecs.json', function(data) {
                     return data;
                 });
             }
