@@ -97,7 +97,7 @@
                     $.ajax({
                         type: 'GET',
                         url: '/api/v1/current/',
-                        success: function (data) {
+                        success: function (data, vg) {
                             console.log(data);
                             $('#current_temp').html(data.temperature);
                             $('#current_hmdt').html(data.humidity);
