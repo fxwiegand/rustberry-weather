@@ -94,10 +94,13 @@
             async function buildVega() {
                 let vg = await vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
                 let measurements = await fetchMeasurements();
+                console.log(measurements);
                 vg = vg.view.insert('temperature', measurements);
 
                 vg.addEventListener('click', async function(event, item) {
+                    console.log('click');
                     let upd = await fetchMeasurements();
+                    console.log(upd);
                     vg.change('temperature', vega.changeset().insert(upd).remove(function (d) {
                         return false;
                     }));
