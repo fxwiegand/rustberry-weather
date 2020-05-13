@@ -99,6 +99,7 @@
                         url: '/api/v1/current/',
                         success: function (data, vg) {
                             console.log(data);
+                            console.log(vg);
                             $('#current_temp').html(data.temperature);
                             $('#current_hmdt').html(data.humidity);
                             $('#current_pressure').html(data.pressure);
