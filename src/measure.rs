@@ -5,6 +5,8 @@ use chrono_locale::LocaleDate;
 //use bme280::BME280;
 //use std::time::SystemTime;
 use rand::Rng;
+use diesel;
+use rustberry_weather::{establish_connection, create_value};
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
@@ -34,6 +36,8 @@ fn bme280_mockup() -> Measurement {
 }
 
 pub(crate) fn make_measurement() -> Measurement {
+    let conn = establish_connection();
+
     // let i2c_bus = I2cdev::new("/dev/i2c-1").unwrap();
     // let mut bme280 = BME280::new_primary(i2c_bus, Delay);
     // bme280.init().unwrap();
@@ -52,6 +56,12 @@ pub(crate) fn make_measurement() -> Measurement {
     // };
 
     let measurement = bme280_mockup();
+    let value = create_value(&conn,
+                             Local.now,
+                             measurement.temperature,
+                             measurement.humidity,
+                             measurement.pressure
+    );
 
     measurement
 }
