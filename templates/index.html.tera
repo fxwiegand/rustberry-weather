@@ -96,6 +96,7 @@
                     type: 'GET',
                     url: '/vega-lite/vlSpecs.json',
                     success: function (data) {
+                        console.log(data);
                         return data;
                     },
                     error: function (xhr, ajaxOptions, thrownError){
@@ -126,6 +127,7 @@
             $(document).ready(function () {
 
                 let v = vegaEmbed('#temp-vis', fetchVegaSpecs());
+                console.log(v);
                 getValues(v);
                 console.log(v);
 
