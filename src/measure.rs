@@ -11,7 +11,6 @@ pub(crate) struct Measurement {
     humidity: f32,
     temperature: f32,
     pressure: f32,
-    //time: SystemTime,
     time: String,
     time_de: String
 }
@@ -21,14 +20,14 @@ fn bme280_mockup() -> Measurement {
     let mut rng = rand::thread_rng();
 
     let m1 = Measurement {
-        humidity: rng.gen_range(30.0, 60.0),
-        temperature: rng.gen_range(0.0, 30.0),
-        pressure: rng.gen_range(950.0, 1050.0),
+        humidity: rng.gen_range(30.0, 60.0).round() as f32,
+        temperature: rng.gen_range(0.0, 30.0).round() as f32,
+        pressure: rng.gen_range(950.0, 1050.0).round() as f32,
         time: datetime.format("%Y-%m-%d %H:%M:%S").to_string(),
         time_de: datetime.formatl("%a, %d. %B %Y %H:%M:%S", "de").to_string(),
     };
 
-    return m1;
+    m1
 }
 
 pub(crate) fn make_measurement() -> Measurement {
