@@ -91,10 +91,18 @@
             </div>
         </div>
         <script>
+            function setValues(data) {
+                $('#current_temp').html(data.temperature);
+                $('#current_hmdt').html(data.humidity);
+                $('#current_pressure').html(data.pressure);
+                $('#timestamp').html(data.time);
+            }
+
             async function buildVega() {
                 let vg = await vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
                 let measurements = await fetchMeasurements();
                 console.log(measurements);
+                setValues(measurements);
                 vg = vg.view.insert('temperature', measurements);
 
                 window.setInterval(async function(){
@@ -111,29 +119,6 @@
                 const result = await rs.json();
                 return result;
             }
-
-            function getValues() {
-                $.ajax({
-                    type: 'GET',
-                    url: '/api/v1/current/',
-                    success: function (data) {
-                        console.log(data);
-                        $('#current_temp').html(data.temperature);
-                        $('#current_hmdt').html(data.humidity);
-                        $('#current_pressure').html(data.pressure);
-                        $('#timestamp').html(data.time);
-                    },
-                    error: function (xhr, ajaxOptions, thrownError){
-                        alert('error!');
-                    }
-                });
-            }
-
-            $(document).ready(function () {
-                window.setInterval(function(){
-                    getValues();
-                }, 5000);
-            });
        </script>
 
    </body>
