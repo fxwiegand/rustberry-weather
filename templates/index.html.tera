@@ -94,7 +94,7 @@
             function fetchVegaSpecs() {
                 $.ajax({
                     type: 'GET',
-                    url: 'http://ubuntu.fritz.box:8000/vega-lite/vlSpecs',
+                    url: '/vega-lite/vlSpecs',
                     success: function (data) {
                         return data
                     },
