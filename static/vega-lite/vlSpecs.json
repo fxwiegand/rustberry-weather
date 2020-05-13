@@ -9,7 +9,7 @@
   "mark": "line",
   "encoding": {
     "x": {
-      "field": "date",
+      "field": "time",
       "type": "temporal",
       "axis": {
         "title": "Datum"
