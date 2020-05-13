@@ -130,7 +130,7 @@
                let v = vegaEmbed('#temp-vis', fetchVegaSpecs());
                window.setInterval(function(){
                    let data = getValues();
-                   v.view.insert("temperature", data);
+                   v = v.view.insert("temperature", data);
                }, 10000);
             });
        </script>
