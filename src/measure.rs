@@ -1,5 +1,6 @@
 use chrono::offset::Utc;
 use chrono::DateTime;
+use chrono_locale::LocaleDate;
 use hal::{Delay, I2cdev};
 use bme280::BME280;
 use std::time::SystemTime;
@@ -20,14 +21,14 @@ pub(crate) fn make_measurement() -> Measurement {
 
     let measurements = bme280.measure().unwrap();
     let now = SystemTime::now();
-    let datetime: chrono::DateTime<Utc> = now.into();
+    let datetime: DateTime<Utc> = now.into();
 
     let measurement = Measurement {
         humidity: measurements.humidity,
         temperature: measurements.temperature,
         pressure: measurements.pressure,
         //time: now,
-        time: datetime.format("%d. %B %Y %H:%M:%S").to_string()
+        time: datetime.formatl("%d. %B %Y %H:%M:%S", "de").to_string()
     };
 
     measurement
