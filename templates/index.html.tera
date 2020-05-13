@@ -92,19 +92,10 @@
         </div>
         <script>
             function fetchVegaSpecs() {
-                $.ajax({
-                    type: 'GET',
-                    url: '/vega-lite/vlSpecs.json',
-                    success: function (data) {
-                        console.log(data);
-                        return data;
-                    },
-                    error: function (xhr, ajaxOptions, thrownError){
-                        alert('error!');
-                    }
+                $.getJSON('employee.json', function(data) {
+                    return data;
                 });
             }
-
 
             function getValues(v) {
                 $.ajax({
