@@ -128,9 +128,11 @@
 
                 let v = vegaEmbed('#temp-vis', fetchVegaSpecs());
                 v = getValues(v);
+                console.log(v);
 
                 window.setInterval(function(){
                     v = getValues(v);
+                    console.log(v);
                 }, 10000);
             });
        </script>
