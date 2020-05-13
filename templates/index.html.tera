@@ -102,7 +102,6 @@
                 let vg = await vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
                 let measurements = await fetchMeasurements();
                 console.log(measurements);
-                setValues(measurements);
                 vg = vg.view.insert('temperature', measurements);
 
                 window.setInterval(async function(){
@@ -117,6 +116,7 @@
             async function fetchMeasurements() {
                 const rs = await fetch('/api/v1/current/');
                 const result = await rs.json();
+                setValues(result);
                 return result;
             }
        </script>
