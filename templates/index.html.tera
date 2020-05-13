@@ -93,6 +93,7 @@
         <script>
             function fetchVegaSpecs() {
                 $.getJSON('/vega-lite/vlSpecs.json', function(data) {
+                    console.log(data);
                     return data;
                 });
             }
