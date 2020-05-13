@@ -2,7 +2,7 @@ use chrono::offset::Utc;
 use chrono::{Local, DateTime};
 use chrono_locale::LocaleDate;
 //use hal::{Delay, I2cdev};
-//#use bme280::BME280;
+//use bme280::BME280;
 //use std::time::SystemTime;
 use rand::Rng;
 
@@ -49,9 +49,9 @@ pub(crate) fn make_measurement() -> Measurement {
     //     time_de: datetime.formatl("%a, %d. %B %Y %H:%M:%S", "de").to_string(),
     // };
 
-    let mesurement = bme280_mockup();
+    let measurement = bme280_mockup();
 
-    //measurement
+    measurement
 }
 
 fn write_data(measurement: Measurement) {
