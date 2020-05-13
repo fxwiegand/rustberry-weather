@@ -10,6 +10,7 @@
   "encoding": {
     "x": {
       "field": "time",
+      "timeUnit": "utcyearmonthdatehoursminutes",
       "type": "temporal",
       "axis": {
         "title": "Datum"
