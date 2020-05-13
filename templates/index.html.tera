@@ -97,7 +97,7 @@
                 });
             }
 
-            function getValues(v) {
+            function getValues(vg) {
                 $.ajax({
                     type: 'GET',
                     url: '/api/v1/current/',
@@ -107,7 +107,7 @@
                         $('#current_hmdt').html(data.humidity);
                         $('#current_pressure').html(data.pressure);
                         $('#timestamp').html(data.time);
-                        v.view.insert("temperature", data);
+                        vg.view.insert("temperature", data);
                     },
                     error: function (xhr, ajaxOptions, thrownError){
                        alert('error!');
@@ -117,10 +117,8 @@
 
             $(document).ready(function () {
 
-                let vega = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
-                console.log(vega);
-                getValues(vega);
-                console.log(vega);
+                let vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
+                getValues(vg);
 
                 // window.setInterval(function(vega){
                 //     getValues(vega);
