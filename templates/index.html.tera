@@ -116,6 +116,7 @@
                        $('#current_pressure').html(data.pressure);
                        $('#timestamp').html(data.time);
                        v = v.view.insert("temperature", data);
+                       return v;
                     },
                     error: function (xhr, ajaxOptions, thrownError){
                        alert('error!');
@@ -126,10 +127,10 @@
             $(document).ready(function () {
 
                 let v = vegaEmbed('#temp-vis', fetchVegaSpecs());
-                getValues(v);
+                v = getValues(v);
 
                 window.setInterval(function(){
-                    getValues(v);
+                    v = getValues(v);
                 }, 10000);
             });
        </script>
