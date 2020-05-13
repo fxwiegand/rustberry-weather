@@ -57,7 +57,7 @@
                     <div class="margin-top">
                         <h5>
                             <i class="fal fa-calendar-alt"></i>
-                            Mo, 5. Mai 2020 10:45
+                            <span id="timestamp">5. Mai 2020 10:45</span>M
                         </h5>
                         <h5>
                             <i class="fal fa-map-marker-alt"></i>
@@ -111,10 +111,10 @@
                    url: '/api/v1/current/',
                    success: function (data) {
                        console.log(data);
-                       //value = JSON.parse(data);
                        $('#current_temp').html(data.temperature);
                        $('#current_hmdt').html(data.humidity);
                        $('#current_pressure').html(data.pressure);
+                       $('#timestamp').html(data.time);
                        return data
                     },
                     error: function (xhr, ajaxOptions, thrownError){
