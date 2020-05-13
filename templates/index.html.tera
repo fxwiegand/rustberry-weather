@@ -91,13 +91,7 @@
             </div>
         </div>
         <script>
-            function fetchVegaSpecs() {
-                $.getJSON('/vega-lite/vlSpecs.json', function(data) {
-                    return data;
-                });
-            }
-
-            function getValues() {
+            function getValues(vg) {
                 $.ajax({
                     type: 'GET',
                     url: '/api/v1/current/',
@@ -118,7 +112,8 @@
             $(document).ready(function () {
 
                 vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
-                getValues();
+                console.log(vg);
+                getValues(vg);
 
                 // window.setInterval(function(vega){
                 //     getValues(vega);
