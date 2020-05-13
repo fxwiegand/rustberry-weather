@@ -1,0 +1,27 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
+  "description": "Temperatur der letzten 7 Tage.",
+  "width": "container",
+  "height": "container",
+  "data": {
+    "name": "temperature"
+  },
+  "mark": "line",
+  "encoding": {
+    "x": {
+      "field": "date",
+      "type": "temporal",
+      "axis": {
+        "title": "Datum"
+      }
+    },
+    "y": {
+      "field": "temperature",
+      "type": "quantitative",
+      "axis": {
+        "title": "Temperatur"
+      }
+    }
+  },
+  "config": {}
+}
