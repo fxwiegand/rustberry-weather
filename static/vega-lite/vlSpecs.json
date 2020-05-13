@@ -14,10 +14,6 @@
       "type": "temporal",
       "scale": {
         "type": "utc"
-      },
-      "axis": {
-        "labelAngle": 15,
-        "title": "Datum"
       }
     },
     "y": {
