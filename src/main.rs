@@ -3,12 +3,12 @@
 #[macro_use] extern crate rocket;
 #[macro_use] extern crate serde;
 
-extern crate linux_embedded_hal as hal;
+//extern crate linux_embedded_hal as hal;
 extern crate rocket_contrib;
 extern crate clap;
 extern crate tera;
 
-use bme280::BME280;
+//use bme280::BME280;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use rocket_contrib::json::Json;
