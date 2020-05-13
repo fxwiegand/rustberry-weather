@@ -94,7 +94,7 @@
             function fetchVegaSpecs() {
                 $.ajax({
                     type: 'GET',
-                    url: '/vega-lite/vlSpecs',
+                    url: '/vega-lite/vlSpecs.json',
                     success: function (data) {
                         return data
                     },
