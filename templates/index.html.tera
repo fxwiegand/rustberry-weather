@@ -93,28 +93,26 @@
         <script>
             $(document).ready(function () {
 
-                function getValues(vg) {
-                    $.ajax({
+                function setData(data) {
+                    $('#current_temp').html(data.temperature);
+                    $('#current_hmdt').html(data.humidity);
+                    $('#current_pressure').html(data.pressure);
+                    $('#timestamp').html(data.time);
+                }
+
+                function getValues() {
+                    return $.ajax({
                         type: 'GET',
                         url: '/api/v1/current/',
-                        success: function (data, vg) {
-                            console.log(data);
-                            console.log(vg);
-                            $('#current_temp').html(data.temperature);
-                            $('#current_hmdt').html(data.humidity);
-                            $('#current_pressure').html(data.pressure);
-                            $('#timestamp').html(data.time);
-                            vg.view.insert("temperature", data);
-                        },
-                        error: function (xhr, ajaxOptions, thrownError){
-                           alert('error!');
-                        }
                     });
                 }
 
                 let vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
-                console.log(vg);
-                getValues(vg);
+                var promise = getValues();
+                promise.success(function (data) {
+                    setData(data);
+                    vg = vg.view.insert('temperature', data);
+                });
 
                 // window.setInterval(function(vega){
                 //     getValues(vega);
