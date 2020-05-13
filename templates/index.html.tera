@@ -126,7 +126,7 @@
             $(document).ready(function () {
                 let v = vegaEmbed('#temp-vis', fetchVegaSpecs());
 
-                getValues();
+                let data = getValues();
                 v = v.view.insert("temperature", data);
 
                 window.setInterval(function(){
