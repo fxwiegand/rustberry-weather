@@ -109,7 +109,7 @@
 
                 let vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
                 let promise = getValues();
-                promise.then(data => {
+                promise.then(data, vg => {
                     setData(data);
                     vg = vg.view.insert('temperature', data);
                 })
