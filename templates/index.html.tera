@@ -129,7 +129,7 @@
                 getValues(v);
 
                 window.setInterval(function(){
-                    getValues();
+                    getValues(v);
                 }, 10000);
             });
        </script>
