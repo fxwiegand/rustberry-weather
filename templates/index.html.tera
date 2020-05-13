@@ -14,7 +14,7 @@
 
    </head>
 
-   <body>
+   <body onload="buildVega()">
         <div class="container-fluid">
             <div class="row main">
 
@@ -91,6 +91,25 @@
             </div>
         </div>
         <script>
+            async function buildVega() {
+                let vg = await vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
+                let measurements = await fetchMeasurements();
+                vg = vg.view.insert('temperature', measurements);
+
+                vg.addEventListener('click', async function(event, item) {
+                    let upd = await fetchMeasurements();
+                    vg.change('temperature', vega.changeset().insert(upd).remove(function (d) {
+                        return false;
+                    }));
+                });
+            }
+
+            async function fetchMeasurements() {
+                const rs = await fetch('/api/v1/current/');
+                const result = await rs.json();
+                return result;
+            }
+
             $(document).ready(function () {
 
                 function setData(data) {
@@ -107,12 +126,12 @@
                     });
                 }
 
-                let vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
-                let promise = getValues();
-                promise.then(data, vg => {
-                    setData(data);
-                    vg = vg.view.insert('temperature', data);
-                })
+                // let vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
+                // let promise = getValues();
+                // promise.then(data, vg => {
+                //     setData(data);
+                //     vg = vg.view.insert('temperature', data);
+                // })
 
                 // window.setInterval(function(vega){
                 //     getValues(vega);
