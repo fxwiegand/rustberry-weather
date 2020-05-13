@@ -122,10 +122,10 @@
                 getValues(vega);
                 console.log(vega);
 
-                window.setInterval(function(vega){
-                    getValues(vega);
-                    console.log(vega);
-                }, 10000);
+                // window.setInterval(function(vega){
+                //     getValues(vega);
+                //     console.log(vega);
+                // }, 10000);
             });
        </script>
 
