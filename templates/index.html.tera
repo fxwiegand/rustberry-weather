@@ -96,7 +96,7 @@
                     type: 'GET',
                     url: '/vega-lite/vlSpecs.json',
                     success: function (data) {
-                        return data
+                        return data;
                     },
                     error: function (xhr, ajaxOptions, thrownError){
                         alert('error!');
@@ -115,7 +115,7 @@
                        $('#current_hmdt').html(data.humidity);
                        $('#current_pressure').html(data.pressure);
                        $('#timestamp').html(data.time);
-                       return data
+                       return data;
                     },
                     error: function (xhr, ajaxOptions, thrownError){
                        alert('error!');
@@ -127,7 +127,7 @@
                let v = vegaEmbed('#temp-vis', fetchVegaSpecs());
                window.setInterval(function(){
                    let data = getValues();
-                   v.view.insert("temperature", data)
+                   v.view.insert("temperature", data);
                }, 5000);
             });
        </script>

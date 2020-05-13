@@ -169,6 +169,21 @@ dependencies = [
 ]
 
 [[package]]
+name = "chrono_locale"
+version = "0.1.1"
+source = "registry+https://github.com/rust-lang/crates.io-index"
+checksum = "1cbf42d590cf2cd03df7910ef6e1cd46039ca566d0547341a3f9b6bfd9e3c491"
+dependencies = [
+ "chrono",
+ "lazy_static",
+ "num-integer",
+ "serde",
+ "serde_derive",
+ "serde_json",
+ "walkdir",
+]
+
+[[package]]
 name = "clap"
 version = "2.33.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -1028,6 +1043,8 @@ name = "rustberry-weather"
 version = "0.1.0"
 dependencies = [
  "bme280",
+ "chrono",
+ "chrono_locale",
  "clap",
  "linux-embedded-hal",
  "rocket",
