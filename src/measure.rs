@@ -10,7 +10,7 @@ pub(crate) struct Measurement {
     temperature: f32,
     pressure: f32,
     //time: SystemTime,
-    time: string
+    time: String
 }
 
 pub(crate) fn make_measurement() -> Measurement {
@@ -20,7 +20,7 @@ pub(crate) fn make_measurement() -> Measurement {
 
     let measurements = bme280.measure().unwrap();
     let now = SystemTime::now();
-    let datetime: DateTime<Utc> = system_time.into();
+    let datetime: DateTime<Utc> = now.into();
 
     let measurement = Measurement {
         humidity: measurements.humidity,
