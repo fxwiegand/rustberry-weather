@@ -1,13 +1,15 @@
 use hal::{Delay, I2cdev};
 use bme280::BME280;
 use std::time::SystemTime;
+use chrono::{DateTime, Utc};
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
     humidity: f32,
     temperature: f32,
     pressure: f32,
-    time: SystemTime,
+    //time: SystemTime,
+    time: string
 }
 
 pub(crate) fn make_measurement() -> Measurement {
@@ -22,7 +24,8 @@ pub(crate) fn make_measurement() -> Measurement {
         humidity: measurements.humidity,
         temperature: measurements.temperature,
         pressure: measurements.pressure,
-        time: now,
+        //time: now,
+        time: now.format("%d.%m.%Y %H:%M:%S")
     };
 
     measurement
