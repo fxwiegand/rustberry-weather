@@ -100,7 +100,7 @@
                 window.setInterval(async function(vega){
                     let upd = await fetchMeasurements();
                     console.log(upd);
-                    vg.change('temperature', vega.changeset().insert(upd).remove(function (d) {
+                    await vg.change('temperature', await vega.changeset().insert(upd).remove(function (d) {
                         return false;
                     }));
                 }, 5000);
