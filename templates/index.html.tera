@@ -91,30 +91,29 @@
             </div>
         </div>
         <script>
-            function getValues(vg) {
-                $.ajax({
-                    type: 'GET',
-                    url: '/api/v1/current/',
-                    success: function (data) {
-                        console.log(data);
-                        $('#current_temp').html(data.temperature);
-                        $('#current_hmdt').html(data.humidity);
-                        $('#current_pressure').html(data.pressure);
-                        $('#timestamp').html(data.time);
-                        vg.view.insert("temperature", data);
-                    },
-                    error: function (xhr, ajaxOptions, thrownError){
-                       alert('error!');
-                    }
-                });
-            }
-
             $(document).ready(function () {
 
-                $when(vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json').then(function () {
-                    console.log(vg);
-                    getValues(vg);
-                }));
+                function getValues(vg) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '/api/v1/current/',
+                        success: function (data) {
+                            console.log(data);
+                            $('#current_temp').html(data.temperature);
+                            $('#current_hmdt').html(data.humidity);
+                            $('#current_pressure').html(data.pressure);
+                            $('#timestamp').html(data.time);
+                            vg.view.insert("temperature", data);
+                        },
+                        error: function (xhr, ajaxOptions, thrownError){
+                           alert('error!');
+                        }
+                    });
+                }
+
+                let vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
+                console.log(vg);
+                getValues(vg);
 
                 // window.setInterval(function(vega){
                 //     getValues(vega);
