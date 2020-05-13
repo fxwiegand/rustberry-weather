@@ -12,7 +12,11 @@
       "field": "time",
       "timeUnit": "utcyearmonthdatehoursminutes",
       "type": "temporal",
+      "scale": {
+        "type": "utc"
+      },
       "axis": {
+        "labelAngle": 15,
         "title": "Datum"
       }
     },
