@@ -1,9 +1,9 @@
 use chrono::offset::Utc;
-use chrono::DateTime;
+use chrono::{Local, DateTime, TimeZone};
 use chrono_locale::LocaleDate;
 use hal::{Delay, I2cdev};
 use bme280::BME280;
-use std::time::SystemTime;
+//use std::time::SystemTime;
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
@@ -20,8 +20,8 @@ pub(crate) fn make_measurement() -> Measurement {
     bme280.init().unwrap();
 
     let measurements = bme280.measure().unwrap();
-    let now = SystemTime::now();
-    let datetime: DateTime<Utc> = now.into();
+    //let now = SystemTime::now();
+    let datetime: DateTime<Local> = Local::now();
 
     let measurement = Measurement {
         humidity: measurements.humidity,
