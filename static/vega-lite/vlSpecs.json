@@ -1,8 +1,8 @@
 {
   "$schema": "https://vega.github.io/schema/vega-lite/v4.json",
   "description": "Temperatur der letzten 7 Tage.",
-  "width": "container",
-  "height": "container",
+  "width": 600,
+  "height": 250,
   "data": {
     "name": "temperature"
   },
