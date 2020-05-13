@@ -11,7 +11,8 @@ pub(crate) struct Measurement {
     temperature: f32,
     pressure: f32,
     //time: SystemTime,
-    time: String
+    time: String,
+    time_de: String
 }
 
 pub(crate) fn make_measurement() -> Measurement {
@@ -28,7 +29,8 @@ pub(crate) fn make_measurement() -> Measurement {
         temperature: measurements.temperature,
         pressure: measurements.pressure,
         //time: now,
-        time: datetime.formatl("%a, %d %B %Y %H:%M:%S", "en").to_string()
+        time: datetime.formatl("%a, %d %B %Y %H:%M:%S", "en").to_string(),
+        time_de: datetime.formatl("%a, %d. %B %Y %H:%M:%S", "de").to_string(),
     };
 
     measurement
