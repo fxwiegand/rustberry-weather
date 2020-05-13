@@ -112,33 +112,27 @@
                 return result;
             }
 
+            function getValues() {
+                $.ajax({
+                    type: 'GET',
+                    url: '/api/v1/current/',
+                    success: function (data) {
+                        console.log(data);
+                        $('#current_temp').html(data.temperature);
+                        $('#current_hmdt').html(data.humidity);
+                        $('#current_pressure').html(data.pressure);
+                        $('#timestamp').html(data.time);
+                    },
+                    error: function (xhr, ajaxOptions, thrownError){
+                        alert('error!');
+                    }
+                });
+            }
+
             $(document).ready(function () {
-
-                function setData(data) {
-                    $('#current_temp').html(data.temperature);
-                    $('#current_hmdt').html(data.humidity);
-                    $('#current_pressure').html(data.pressure);
-                    $('#timestamp').html(data.time);
-                }
-
-                function getValues() {
-                    return $.ajax({
-                        type: 'GET',
-                        url: '/api/v1/current/',
-                    });
-                }
-
-                // let vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
-                // let promise = getValues();
-                // promise.then(data, vg => {
-                //     setData(data);
-                //     vg = vg.view.insert('temperature', data);
-                // })
-
-                // window.setInterval(function(vega){
-                //     getValues(vega);
-                //     console.log(vega);
-                // }, 10000);
+                window.setInterval(function(){
+                    getValues();
+                }, 5000);
             });
        </script>
 
