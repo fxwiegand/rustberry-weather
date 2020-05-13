@@ -97,13 +97,13 @@
                 console.log(measurements);
                 vg = vg.view.insert('temperature', measurements);
 
-                vg.addEventListener('timer{5000}', async function(event, item) {
+                window.setInterval(async function(vega){
                     let upd = await fetchMeasurements();
                     console.log(upd);
                     vg.change('temperature', vega.changeset().insert(upd).remove(function (d) {
                         return false;
                     }));
-                });
+                }, 5000);
             }
 
             async function fetchMeasurements() {
