@@ -93,7 +93,6 @@
         <script>
             function fetchVegaSpecs() {
                 $.getJSON('/vega-lite/vlSpecs.json', function(data) {
-                    console.log(data);
                     return data;
                 });
             }
@@ -101,14 +100,14 @@
             function getValues(v) {
                 $.ajax({
                     type: 'GET',
-                   url: '/api/v1/current/',
-                   success: function (data) {
-                       console.log(data);
-                       $('#current_temp').html(data.temperature);
-                       $('#current_hmdt').html(data.humidity);
-                       $('#current_pressure').html(data.pressure);
-                       $('#timestamp').html(data.time);
-                       v.view.insert("temperature", data);
+                    url: '/api/v1/current/',
+                    success: function (data) {
+                        console.log(data);
+                        $('#current_temp').html(data.temperature);
+                        $('#current_hmdt').html(data.humidity);
+                        $('#current_pressure').html(data.pressure);
+                        $('#timestamp').html(data.time);
+                        v.view.insert("temperature", data);
                     },
                     error: function (xhr, ajaxOptions, thrownError){
                        alert('error!');
@@ -118,14 +117,14 @@
 
             $(document).ready(function () {
 
-                let v = vegaEmbed('#temp-vis', fetchVegaSpecs());
-                console.log(v);
-                getValues(v);
-                console.log(v);
+                let vega = vegaEmbed('#temp-vis', fetchVegaSpecs());
+                console.log(vega);
+                getValues(vega);
+                console.log(vega);
 
-                window.setInterval(function(){
-                    getValues(v);
-                    console.log(v);
+                window.setInterval(function(vega){
+                    getValues(vega);
+                    console.log(vega);
                 }, 10000);
             });
        </script>
