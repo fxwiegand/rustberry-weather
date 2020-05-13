@@ -7,7 +7,7 @@
     "name": "temperature",
     "format": {
       "parse": {
-        "time": "utc:'%a, %d %B %Y %H:%M:%S'"
+        "time": "utc:'%Y-%m-%d %H:%M:%S'"
       }
     }
   },
