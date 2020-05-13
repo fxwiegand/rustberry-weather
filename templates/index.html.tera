@@ -97,7 +97,7 @@
                 });
             }
 
-            function getValues(vg) {
+            function getValues() {
                 $.ajax({
                     type: 'GET',
                     url: '/api/v1/current/',
@@ -117,8 +117,8 @@
 
             $(document).ready(function () {
 
-                let vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
-                getValues(vg);
+                vg = vegaEmbed('#temp-vis', '/vega-lite/vlSpecs.json');
+                getValues();
 
                 // window.setInterval(function(vega){
                 //     getValues(vega);
