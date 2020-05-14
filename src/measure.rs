@@ -6,7 +6,7 @@ use chrono_locale::LocaleDate;
 //use std::time::SystemTime;
 use rand::Rng;
 use diesel;
-use rustberry_weather::{establish_connection, create_value};
+use crate::{establish_connection, create_value};
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
