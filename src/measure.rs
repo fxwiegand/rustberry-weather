@@ -6,7 +6,11 @@ use chrono_locale::LocaleDate;
 //use std::time::SystemTime;
 use rand::Rng;
 use diesel;
-use crate::{establish_connection, create_value};
+use diesel::prelude::*;
+use diesel::pg::PgConnection;
+use dotenv::dotenv;
+use std::env;
+use crate::models::{NewValue, Value};
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
@@ -66,4 +70,32 @@ pub(crate) fn make_measurement() -> Measurement {
     );
 
     measurement
+}
+
+
+pub fn establish_connection() -> PgConnection {
+    dotenv().ok();
+
+    let database_url = env::var("DATABASE_URL")
+        .expect("DATABASE_URL must be set");
+    PgConnection::establish(&database_url)
+        .expect(&format!("Error connecting to {}", database_url))
+}
+
+pub fn create_value(conn: &PgConnection,
+                    timestamp: chrono::NaiveDateTime, temperature: f32,
+                    pressure: f32, humidity: f32) -> Value {
+    use crate::schema::values;
+
+    let new_value = NewValue {
+        timestamp: timestamp,
+        temperature: bigdecimal::FromPrimitive::from_f32(temperature).unwrap(),
+        pressure:bigdecimal::FromPrimitive::from_f32(pressure).unwrap(),
+        humidity: bigdecimal::FromPrimitive::from_f32(humidity).unwrap(),
+    };
+
+    diesel::insert_into(values::table)
+        .values(&new_value)
+        .get_result(conn)
+        .expect("Error saving new value")
 }
