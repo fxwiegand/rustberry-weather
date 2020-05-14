@@ -1,5 +1,5 @@
 use chrono::offset::Utc;
-use chrono::{Local, DateTime};
+use chrono::{Local, DateTime, Datelike, NaiveDateTime};
 use chrono_locale::LocaleDate;
 //use hal::{Delay, I2cdev};
 //use bme280::BME280;
@@ -44,7 +44,9 @@ pub(crate) fn make_measurement() -> Measurement {
     //
     // let measurements = bme280.measure().unwrap();
     // //let now = SystemTime::now();
-    // let datetime: DateTime<Local> = Local::now();
+    let datetime: DateTime<Local> = Local::now();
+    let date_string = datetime.format("%Y-%m-%d %H:%M:%S").to_string();
+    let naive_datetime = NaiveDateTime::parse_from_str(&date_string, "%Y-%m-%d %H:%M:%S").unwrap();
 
     // let measurement = Measurement {
     //     humidity: measurements.humidity,
@@ -57,7 +59,7 @@ pub(crate) fn make_measurement() -> Measurement {
 
     let measurement = bme280_mockup();
     let value = create_value(&conn,
-                             Local.now,
+                             naive_datetime,
                              measurement.temperature,
                              measurement.humidity,
                              measurement.pressure

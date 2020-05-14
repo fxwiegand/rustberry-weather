@@ -11,6 +11,8 @@ use dotenv::dotenv;
 use std::env;
 use chrono::{Local, DateTime};
 use self::models::Value;
+use crate::models::NewValue;
+
 
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
@@ -22,15 +24,15 @@ pub fn establish_connection() -> PgConnection {
 }
 
 pub fn create_value(conn: &PgConnection,
-                    timestamp: DateTime<Local>, temperature: f32,
+                    timestamp: chrono::NaiveDateTime, temperature: f32,
                     pressure: f32, humidity: f32) -> Value {
     use schema::values;
 
     let new_value = NewValue {
         timestamp: timestamp,
-        temperature: temperature,
-        pressure: pressure,
-        humidity: humidity
+        temperature: bigdecimal::FromPrimitive::from_f32(temperature).unwrap(),
+        pressure:bigdecimal::FromPrimitive::from_f32(pressure).unwrap(),
+        humidity: bigdecimal::FromPrimitive::from_f32(humidity).unwrap(),
     };
 
     diesel::insert_into(values::table)
