@@ -67,7 +67,3 @@ pub(crate) fn make_measurement() -> Measurement {
 
     measurement
 }
-
-fn write_data(measurement: Measurement) {
-    // write data to database
-}
