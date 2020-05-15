@@ -51,13 +51,11 @@ pub(crate) fn make_measurement() -> Measurement {
     let measurement = Measurement {
         humidity: measurements.humidity,
         temperature: measurements.temperature,
-        pressure: measurements.pressure,
+        pressure: measurements.pressure/(100 as f32), //p to hPa = divide by 100
         time: naive_datetime.to_string(),
     };
 
-    println!("{:?}", measurements.pressure.clone());
-    let x: BigDecimal = bigdecimal::FromPrimitive::from_f32(measurements.pressure.clone()).unwrap();
-    println!("{:?}", x);
+
 
     //let measurement = bme280_mockup();
     let value = create_value(&conn,
@@ -91,8 +89,6 @@ pub fn create_value(conn: &PgConnection,
         pressure:bigdecimal::FromPrimitive::from_f32(pressure).unwrap(),
         humidity: bigdecimal::FromPrimitive::from_f32(humidity).unwrap(),
     };
-
-    println!("{:?}", new_value);
 
     diesel::insert_into(values::table)
         .values(&new_value)
