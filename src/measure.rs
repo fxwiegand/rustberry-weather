@@ -88,7 +88,7 @@ pub fn create_value(conn: &PgConnection,
         humidity: bigdecimal::FromPrimitive::from_f32(humidity).unwrap(),
     };
 
-    println!("{:?}", new_value.clone());
+    println!("{:?}", new_value);
 
     diesel::insert_into(values::table)
         .values(&new_value)
