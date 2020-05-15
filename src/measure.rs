@@ -1,9 +1,8 @@
 use chrono::offset::Utc;
 use chrono::{Local, DateTime, Datelike, NaiveDateTime};
 use chrono_locale::LocaleDate;
-//use hal::{Delay, I2cdev};
-//use bme280::BME280;
-//use std::time::SystemTime;
+use hal::{Delay, I2cdev};
+use bme280::BME280;
 use rand::Rng;
 use diesel;
 use diesel::prelude::*;
@@ -17,8 +16,7 @@ pub(crate) struct Measurement {
     humidity: f32,
     temperature: f32,
     pressure: f32,
-    time: String,
-    time_de: String
+    time: NaiveDateTime,
 }
 
 fn bme280_mockup() -> Measurement {
@@ -32,8 +30,7 @@ fn bme280_mockup() -> Measurement {
         humidity: h.round(),
         temperature: t.round(),
         pressure: p.round(),
-        time: datetime.format("%Y-%m-%d %H:%M:%S").to_string(),
-        time_de: datetime.formatl("%a, %d. %B %Y %H:%M:%S", "de").to_string(),
+        time: get_naive_datetime(),
     };
 
     m1
@@ -42,26 +39,22 @@ fn bme280_mockup() -> Measurement {
 pub(crate) fn make_measurement() -> Measurement {
     let conn = establish_connection();
 
-    // let i2c_bus = I2cdev::new("/dev/i2c-1").unwrap();
-    // let mut bme280 = BME280::new_primary(i2c_bus, Delay);
-    // bme280.init().unwrap();
-    //
-    // let measurements = bme280.measure().unwrap();
-    // //let now = SystemTime::now();
-    let datetime: DateTime<Local> = Local::now();
-    let date_string = datetime.format("%Y-%m-%d %H:%M:%S").to_string();
-    let naive_datetime = NaiveDateTime::parse_from_str(&date_string, "%Y-%m-%d %H:%M:%S").unwrap();
+    let i2c_bus = I2cdev::new("/dev/i2c-1").unwrap();
+    let mut bme280 = BME280::new_primary(i2c_bus, Delay);
+    bme280.init().unwrap();
 
-    // let measurement = Measurement {
-    //     humidity: measurements.humidity,
-    //     temperature: measurements.temperature,
-    //     pressure: measurements.pressure,
-    //     //time: now,
-    //     time: datetime.format("%Y-%m-%d %H:%M:%S").to_string(),
-    //     time_de: datetime.formatl("%a, %d. %B %Y %H:%M:%S", "de").to_string(),
-    // };
+    let measurements = bme280.measure().unwrap();
 
-    let measurement = bme280_mockup();
+    let naive_datetime = get_naive_datetime();
+
+    let measurement = Measurement {
+        humidity: measurements.humidity,
+        temperature: measurements.temperature,
+        pressure: measurements.pressure,
+        time: datetime.format("%Y-%m-%d %H:%M:%S").to_string(),
+    };
+
+    //let measurement = bme280_mockup();
     let value = create_value(&conn,
                              naive_datetime,
                              measurement.temperature,
@@ -98,4 +91,12 @@ pub fn create_value(conn: &PgConnection,
         .values(&new_value)
         .get_result(conn)
         .expect("Error saving new value")
+}
+
+fn get_naive_datetime() -> NaiveDateTime {
+    let datetime: DateTime<Local> = Local::now();
+    let date_string = datetime.format("%Y-%m-%d %H:%M:%S").to_string();
+    let naive_datetime = NaiveDateTime::parse_from_str(&date_string, "%Y-%m-%d %H:%M:%S").unwrap();
+
+    naive_datetime
 }
