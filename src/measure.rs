@@ -56,7 +56,8 @@ pub(crate) fn make_measurement() -> Measurement {
     };
 
     println!("{:?}", measurements.pressure.clone());
-    println!("{:?}", bigdecimal::FromPrimitive::from_f32(measurements.pressure.clone()).unwrap());
+    let x = bigdecimal::FromPrimitive::from_f32(measurements.pressure.clone()).unwrap();
+    println!("{:?}", x);
 
     //let measurement = bme280_mockup();
     let value = create_value(&conn,
