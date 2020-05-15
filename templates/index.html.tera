@@ -14,24 +14,24 @@
 
    </head>
 
-   <body onload="buildVega()">
+   <body>
         <div class="container-fluid">
             <div class="row main">
 
                 <div class="col-3 sidebar padding">
                     <h1>
                         <i class="fal fa-thermometer-half"></i>
-                        <span id="current_temp">3
+                        <span id="current_temp">
                         </span><sup>&deg;C</sup>
                     </h1>
                     <h1>
                         <i class="fal fa-humidity"></i>
-                        <span id="current_hmdt">3</span>
+                        <span id="current_hmdt"></span>
                         g/m<sup>3</sup>
                     </h1>
                     <h1>
                         <i class="fal fa-tachometer"></i>
-                        <span id="current_pressure">3</span>
+                        <span id="current_pressure"></span>
                         hPa
                     </h1>
                     <h3>
@@ -93,6 +93,10 @@
             </div>
         </div>
         <script>
+            window.onload = async function () {
+                await buildVega();
+            }
+
             function setValues(data) {
                 $('#current_temp').html(data.temperature);
                 $('#current_hmdt').html(data.humidity);
@@ -104,24 +108,24 @@
                 let vgt = await vegaEmbed('#temp-vis', '/vega-lite/temperature.json');
                 let vgh = await vegaEmbed('#humi-vis', '/vega-lite/humidity.json');
                 let vgp = await vegaEmbed('#press-vis', '/vega-lite/pressure.json');
-                let measurements = await fetchMeasurements();
 
-                vgt = vgt.view.insert('temperature', measurements);
+                let measurements = await fetchLatestMeasurements();
+
+                vgt = await vgt.view.insert('temperature', await measurements);
                 vgh = vgh.view.insert('humidity', measurements);
                 vgp = vgp.view.insert('pressure', measurements);
 
-                window.setInterval(async function(){
-                    let upd = await fetchMeasurements();
-                    await vgt.change('temperature', await vega.changeset().insert(upd).remove(function (d) {
-                        return false;
-                    }));
-                    await vgh.change('humidity', await vega.changeset().insert(upd).remove(function (d) {
-                        return false;
-                    }));
-                    await vgp.change('pressure', await vega.changeset().insert(upd).remove(function (d) {
-                        return false;
-                    }));
-                }, 5000);
+                setValues(fetchMeasurements());
+            }
+
+            window.setInterval(async function(){
+                fetchMeasurements();
+            }, 5000);
+
+            async function fetchLatestMeasurements() {
+                const rs = await fetch('/api/v1/interval/7');
+                const result = await rs.json();
+                return result;
             }
 
             async function fetchMeasurements() {

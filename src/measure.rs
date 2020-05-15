@@ -10,7 +10,8 @@ use diesel::pg::PgConnection;
 use dotenv::dotenv;
 use std::env;
 use crate::models::{NewValue, Value};
-use bigdecimal::{FromPrimitive, BigDecimal};
+use bigdecimal::FromPrimitive;
+use chrono::format::Numeric::Timestamp;
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
@@ -21,7 +22,6 @@ pub(crate) struct Measurement {
 }
 
 fn bme280_mockup() -> Measurement {
-    let datetime: DateTime<Local> = Local::now();
     let mut rng = rand::thread_rng();
     let h = rng.gen_range(30.0, 60.0) as f32;
     let t = rng.gen_range(0.0, 30.0) as f32;
@@ -37,7 +37,7 @@ fn bme280_mockup() -> Measurement {
     m1
 }
 
-pub(crate) fn make_measurement() -> Measurement {
+pub fn measure() {
     let conn = establish_connection();
 
     let i2c_bus = I2cdev::new("/dev/i2c-1").unwrap();
@@ -48,26 +48,8 @@ pub(crate) fn make_measurement() -> Measurement {
 
     let naive_datetime = get_naive_datetime();
 
-    let measurement = Measurement {
-        humidity: measurements.humidity,
-        temperature: measurements.temperature,
-        pressure: measurements.pressure/(100 as f32), //p to hPa = divide by 100
-        time: naive_datetime.to_string(),
-    };
-
-
-
-    //let measurement = bme280_mockup();
-    let value = create_value(&conn,
-                             naive_datetime,
-                             measurement.temperature,
-                             measurement.pressure,
-                             measurement.humidity
-    );
-
-    measurement
+    create_value(&conn, naive_datetime, measurements.temperature,measurements.pressure, measurements.humidity);
 }
-
 
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
@@ -90,10 +72,39 @@ pub fn create_value(conn: &PgConnection,
         humidity: bigdecimal::FromPrimitive::from_f32(humidity).unwrap(),
     };
 
+
     diesel::insert_into(values::table)
         .values(&new_value)
         .get_result(conn)
         .expect("Error saving new value")
+}
+
+pub fn get_values(conn: &PgConnection, days: u32) -> Vec<Value> {
+    use crate::schema::values::dsl::*;
+
+    let mut sql = String::from("NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER-");
+    sql.push_str(&days.to_string());
+
+    let v = values
+        .filter(timestamp.gt(diesel::dsl::sql(&sql)))
+        .load::<Value>(conn)
+        .expect("Error loading posts");
+
+    v
+}
+
+pub fn get_latest_value(conn: &PgConnection) -> Value {
+    use crate::schema::values::dsl::*;
+
+    let mut v = values
+        .order(timestamp.desc())
+        .limit(1)
+        .load::<Value>(conn)
+        .expect("Error loading posts");
+
+    let m = v.pop();
+
+    m.unwrap()
 }
 
 fn get_naive_datetime() -> NaiveDateTime {

@@ -14,7 +14,7 @@
   "mark": "line",
   "encoding": {
     "x": {
-      "field": "time",
+      "field": "timestamp",
       "timeUnit": "utcyearmonthdatehoursminutesseconds",
       "type": "temporal",
       "scale": {
