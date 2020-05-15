@@ -18,6 +18,8 @@ use clap::{App, SubCommand, ArgMatches};
 use tera::{Tera, Context};
 use std::collections::HashMap;
 use measure::{Measurement, make_measurement};
+use crate::measure::{get_values, establish_connection};
+use crate::models::Value;
 
 mod measure;
 
@@ -30,11 +32,12 @@ fn current() -> Json<Measurement> {
     Json(response)
 }
 
-/*#[get("/average/")]
-fn average() -> Json<Measurement> {
-    // Read from Database and calculate average values
+#[get("/interval/<days>")]
+fn interval(days: u32) -> Json<Vec<Value>> {
+    let conn = establish_connection();
+    let response = get_values(&conn, days);
     Json(response)
-}*/
+}
 
 #[get("/")]
 fn index() -> Template {
@@ -61,7 +64,7 @@ fn main() {
             rocket::ignite()
                 .mount("/",  StaticFiles::from("static"))
                 .mount("/", routes![index])
-                .mount("/api/v1", routes![current])
+                .mount("/api/v1", routes![current,interval])
                 .attach(Template::fairing())
                 .launch();
         },

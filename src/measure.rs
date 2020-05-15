@@ -11,6 +11,7 @@ use dotenv::dotenv;
 use std::env;
 use crate::models::{NewValue, Value};
 use bigdecimal::FromPrimitive;
+use chrono::format::Numeric::Timestamp;
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
@@ -94,6 +95,20 @@ pub fn create_value(conn: &PgConnection,
         .values(&new_value)
         .get_result(conn)
         .expect("Error saving new value")
+}
+
+pub fn get_values(conn: &PgConnection, days: u32) -> Vec<Value> {
+    use crate::schema::values::dsl::*;
+
+    let mut sql = String::from("NOW()::DATE-EXTRACT(DOW FROM NOW())::INTEGER-");
+    sql.push_str(&days.to_string());
+
+    let v = values
+        .filter(timestamp.gt(diesel::dsl::sql(&sql)))
+        .load::<Value>(conn)
+        .expect("Error loading posts");
+
+    v
 }
 
 fn get_naive_datetime() -> NaiveDateTime {

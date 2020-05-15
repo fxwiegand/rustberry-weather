@@ -3,7 +3,7 @@ use crate::schema::values;
 use bigdecimal::BigDecimal;
 
 
-#[derive(Queryable)]
+#[derive(Queryable, Debug, Serialize)]
 pub struct Value {
     pub id: i32,
     pub timestamp: NaiveDateTime,
@@ -12,7 +12,7 @@ pub struct Value {
     pub humidity: BigDecimal,
 }
 
-#[derive(Insertable)]
+#[derive(Insertable, Debug)]
 #[table_name = "values"]
 pub struct NewValue {
     pub timestamp: NaiveDateTime,
