@@ -55,6 +55,9 @@ pub(crate) fn make_measurement() -> Measurement {
         time: naive_datetime.to_string(),
     };
 
+    println!("{:?}", measurements.pressure.clone());
+    println!("{:?}", bigdecimal::FromPrimitive::from_f32(measurements.pressure.clone()).unwrap());
+
     //let measurement = bme280_mockup();
     let value = create_value(&conn,
                              naive_datetime,
