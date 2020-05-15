@@ -10,13 +10,14 @@ use diesel::pg::PgConnection;
 use dotenv::dotenv;
 use std::env;
 use crate::models::{NewValue, Value};
+use bigdecimal::FromPrimitive;
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
     humidity: f32,
     temperature: f32,
     pressure: f32,
-    time: NaiveDateTime,
+    time: String,
 }
 
 fn bme280_mockup() -> Measurement {
@@ -30,7 +31,7 @@ fn bme280_mockup() -> Measurement {
         humidity: h.round(),
         temperature: t.round(),
         pressure: p.round(),
-        time: get_naive_datetime(),
+        time: get_naive_datetime().to_string(),
     };
 
     m1
@@ -51,7 +52,7 @@ pub(crate) fn make_measurement() -> Measurement {
         humidity: measurements.humidity,
         temperature: measurements.temperature,
         pressure: measurements.pressure,
-        time: datetime.format("%Y-%m-%d %H:%M:%S").to_string(),
+        time: naive_datetime.to_string(),
     };
 
     //let measurement = bme280_mockup();
