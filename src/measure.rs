@@ -1,8 +1,8 @@
 use chrono::offset::Utc;
 use chrono::{Local, DateTime, Datelike, NaiveDateTime};
 use chrono_locale::LocaleDate;
-use hal::{Delay, I2cdev};
-use bme280::BME280;
+//use hal::{Delay, I2cdev};
+//use bme280::BME280;
 use rand::Rng;
 use diesel;
 use diesel::prelude::*;
@@ -40,22 +40,22 @@ fn bme280_mockup() -> Measurement {
 pub(crate) fn make_measurement() -> Measurement {
     let conn = establish_connection();
 
-    let i2c_bus = I2cdev::new("/dev/i2c-1").unwrap();
-    let mut bme280 = BME280::new_primary(i2c_bus, Delay);
-    bme280.init().unwrap();
-
-    let measurements = bme280.measure().unwrap();
+    // let i2c_bus = I2cdev::new("/dev/i2c-1").unwrap();
+    // let mut bme280 = BME280::new_primary(i2c_bus, Delay);
+    // bme280.init().unwrap();
+    //
+    // let measurements = bme280.measure().unwrap();
 
     let naive_datetime = get_naive_datetime();
 
-    let measurement = Measurement {
-        humidity: measurements.humidity,
-        temperature: measurements.temperature,
-        pressure: measurements.pressure,
-        time: naive_datetime.to_string(),
-    };
+    // let measurement = Measurement {
+    //     humidity: measurements.humidity,
+    //     temperature: measurements.temperature,
+    //     pressure: measurements.pressure,
+    //     time: naive_datetime.to_string(),
+    // };
 
-    //let measurement = bme280_mockup();
+    let measurement = bme280_mockup();
     let value = create_value(&conn,
                              naive_datetime,
                              measurement.temperature,
@@ -88,7 +88,7 @@ pub fn create_value(conn: &PgConnection,
         humidity: bigdecimal::FromPrimitive::from_f32(humidity).unwrap(),
     };
 
-    println!("{:?}", new_value);
+    //println!("{:?}", new_value);
 
     diesel::insert_into(values::table)
         .values(&new_value)
