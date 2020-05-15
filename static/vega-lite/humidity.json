@@ -15,7 +15,7 @@
   "encoding": {
     "x": {
       "field": "timestamp",
-      "timeUnit": "utcyearmonthdatehoursminutesseconds",
+      "timeUnit": "utcyearmonthdatehours",
       "type": "temporal",
       "scale": {
         "type": "utc"
