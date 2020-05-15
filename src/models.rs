@@ -12,7 +12,7 @@ pub struct Value {
     pub humidity: BigDecimal,
 }
 
-#[derive(Insertable)]
+#[derive(Insertable, Debug)]
 #[table_name = "values"]
 pub struct NewValue {
     pub timestamp: NaiveDateTime,
