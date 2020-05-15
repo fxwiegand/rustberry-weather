@@ -10,7 +10,7 @@ use diesel::pg::PgConnection;
 use dotenv::dotenv;
 use std::env;
 use crate::models::{NewValue, Value};
-use bigdecimal::FromPrimitive;
+use bigdecimal::{FromPrimitive, BigDecimal};
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
@@ -56,7 +56,7 @@ pub(crate) fn make_measurement() -> Measurement {
     };
 
     println!("{:?}", measurements.pressure.clone());
-    let x = bigdecimal::FromPrimitive::from_f32(measurements.pressure.clone()).unwrap();
+    let x: BigDecimal = bigdecimal::FromPrimitive::from_f32(measurements.pressure.clone()).unwrap();
     println!("{:?}", x);
 
     //let measurement = bme280_mockup();
