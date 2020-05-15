@@ -17,8 +17,9 @@ use rocket_contrib::json::Json;
 use clap::{App, SubCommand, ArgMatches};
 use tera::{Tera, Context};
 use std::collections::HashMap;
-use measure::{Measurement, make_measurement};
-use crate::measure::{get_values, establish_connection};
+use std::{thread,time};
+use measure::{Measurement, measure};
+use crate::measure::{get_values, get_latest_value, establish_connection};
 use crate::models::Value;
 
 mod measure;
@@ -27,8 +28,9 @@ pub mod schema;
 pub mod models;
 
 #[get("/current")]
-fn current() -> Json<Measurement> {
-    let response = make_measurement();
+fn current() -> Json<Value> {
+    let conn = establish_connection();
+    let response = get_latest_value(&conn);
     Json(response)
 }
 
@@ -61,6 +63,16 @@ fn main() {
 
     match matches.subcommand_name() {
         Some("server") => {
+            thread::spawn(move || {
+                let sleep = time::Duration::from_millis(10000);
+
+                loop {
+                    measure();
+                    thread::sleep(sleep);
+                }
+            });
+
+
             rocket::ignite()
                 .mount("/",  StaticFiles::from("static"))
                 .mount("/", routes![index])
