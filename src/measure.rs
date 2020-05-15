@@ -59,8 +59,8 @@ pub(crate) fn make_measurement() -> Measurement {
     let value = create_value(&conn,
                              naive_datetime,
                              measurement.temperature,
-                             measurement.humidity,
-                             measurement.pressure
+                             measurement.pressure,
+                             measurement.humidity
     );
 
     measurement
