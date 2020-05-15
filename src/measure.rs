@@ -48,7 +48,7 @@ pub fn measure() {
 
     let naive_datetime = get_naive_datetime();
 
-    create_value(&conn, naive_datetime, measurements.temperature,measurements.pressure, measurements.humidity);
+    create_value(&conn, naive_datetime, measurements.temperature,measurements.pressure/100 as f32, measurements.humidity);
 }
 
 pub fn establish_connection() -> PgConnection {
@@ -72,7 +72,7 @@ pub fn create_value(conn: &PgConnection,
         humidity: bigdecimal::FromPrimitive::from_f32(humidity).unwrap(),
     };
 
-
+    
     diesel::insert_into(values::table)
         .values(&new_value)
         .get_result(conn)
