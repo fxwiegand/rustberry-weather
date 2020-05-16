@@ -60,11 +60,10 @@ fn main() {
             .author("Felix W. <fxwiegand@wgdnet.de>"))
         .get_matches();
 
-
     match matches.subcommand_name() {
         Some("server") => {
             thread::spawn(move || {
-                let sleep = time::Duration::from_millis(10000);
+                let sleep = time::Duration::from_millis(60000);
 
                 loop {
                     measure();
