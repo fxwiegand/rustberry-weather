@@ -49,36 +49,40 @@
                     </table>
 
                     <table class="values" style="margin-top: 2rem;">
-                        <tr>
-                            <th>
-                                <i class="fas fa-thermometer-full"></i>
-                            </th>
-                            <td>
-                                <span id="max_temp">22,5</span>
-                                <sup>&deg;C</sup>
-                            </td>
-                            <td>14 Uhr</td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <i class="fas fa-thermometer-empty"></i>
-                            </th>
-                            <td>
-                                <span id="min_temp">22,5</span>
-                                <sup>&deg;C</sup>
-                            </td>
-                            <td>14 Uhr</td>
-                        </tr>
-                        <tr>
-                            <th>
-                                <i class="fas fa-thermometer-half"></i>
-                            </th>
-                            <td>
-                                <span id="average_temp">22,5</span>
-                                <sup>&deg;C</sup>
-                            </td>
-                            <td>14 Uhr</td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>Min</th>
+                                <th>Max</th>
+                                <th>Avg</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th><i class="fas fa-clock"></i></th>
+                                <td><span id="min_clock">22,5</span>5 Uhr</td>
+                                <td><span id="max_clock">22,5</span>14 Uhr</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-thermometer-half"></i></th>
+                                <td><span id="min_temp">22,5</span><sup>&deg;C</sup></td>
+                                <td><span id="max_temp">22,5</span><sup>&deg;C</sup></td>
+                                <td><span id="avg_temp">22,5</span><sup>&deg;C</sup></td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-tint"></i></th>
+                                <td><span id="min_hmdt">40,0</span>g/m<sup>3</sup></td>
+                                <td><span id="max_hmdt">40,0</span>g/m<sup>3</sup></td>
+                                <td><span id="avg_hmdt">40,0</span>g/m<sup>3</sup></td>
+                            </tr>
+                            <tr>
+                                <th><i class="fas fa-tachometer-alt"></i></th>
+                                <td><span id="min_press">1010</span>hPa</td>
+                                <td><span id="max_press">1025</span>hPa</td>
+                                <td><span id="avg_press">1018</span>hPa</td>
+                            </tr>
+                        </tbody>
                     </table>
 
                     <table class="context" style="margin-top: 2rem;">
