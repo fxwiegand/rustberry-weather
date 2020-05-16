@@ -13,7 +13,7 @@ A weather station for the raspberry pi written in rust
 * Connect the vcc, gnd, scl and sda pins of your bme280 sensor to the corresponding pins of your raspberry pi
 * Clone the repository
 * Configure the [Rocket.toml](Rocket.toml) so the website is running on your desired adress, port etc.
-* Setup an [Postgres](https://www.postgresql.org) database and export your database url with `export DATABASE_URL=postgres://postgres:xxx@yourserver:5432/yourdatabase`
+* Setup an [Postgres](https://www.postgresql.org) database and export your database url with `export DATABASE_URL=postgres://username:password@domain:5432/yourdatabase`
 * Either grant yourself access to `/dev/i2c-1/` for letting the program connect to the sensor to run with `cargo run server` or build the executable with `cargo build --release` and run as sudo with `sudo target/release/rustberry-weather server`
 
 
