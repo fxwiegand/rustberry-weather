@@ -97,7 +97,10 @@
                 $('#current_temp').html(data.temperature);
                 $('#current_hmdt').html(data.humidity);
                 $('#current_pressure').html(data.pressure);
-                $('#timestamp').html(data.timestamp);
+                var timestamp = new Date(data.timestamp);
+                var date_loc = timestamp.toLocaleDateString("de-DE");
+                var time_loc = timestamp.toLocaleTimeString("de-DE");
+                $('#timestamp').html(date_loc + ' ' + time_loc);
             }
 
             async function buildVega() {
