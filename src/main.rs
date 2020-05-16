@@ -19,7 +19,7 @@ use tera::{Tera, Context};
 use std::collections::HashMap;
 use std::{thread,time};
 use measure::{Measurement, measure};
-use crate::measure::{get_values, get_latest_value, establish_connection};
+use crate::measure::{get_values, get_latest_value, establish_connection, get_average_values};
 use crate::models::Value;
 
 mod measure;
@@ -40,6 +40,14 @@ fn interval(days: u32) -> Json<Vec<Value>> {
     let response = get_values(&conn, days);
     Json(response)
 }
+
+#[get("/average")]
+fn average() -> Json<Measurement> {
+    let conn = establish_connection();
+    let response = get_average_values(&conn);
+    Json(response)
+}
+
 
 #[get("/")]
 fn index() -> Template {
@@ -75,7 +83,7 @@ fn main() {
             rocket::ignite()
                 .mount("/",  StaticFiles::from("static"))
                 .mount("/", routes![index])
-                .mount("/api/v1", routes![current,interval])
+                .mount("/api/v1", routes![current,interval, average])
                 .attach(Template::fairing())
                 .launch();
         },
