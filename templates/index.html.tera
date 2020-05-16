@@ -94,7 +94,9 @@
             }
 
             function setValues(data) {
-                $('#current_temp').html(data.temperature);
+                var timestamp = new Date(data.temperature);
+                var ts_loc = timestamp.toLocaleDateString("de-DE");
+                $('#current_temp').html(ts_loc);
                 $('#current_hmdt').html(data.humidity);
                 $('#current_pressure').html(data.pressure);
                 $('#timestamp').html(data.time_de);
