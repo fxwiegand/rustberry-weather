@@ -52,9 +52,9 @@
                         <thead>
                             <tr>
                                 <th></th>
-                                <th>Min</th>
-                                <th>Max</th>
-                                <th>Avg</th>
+                                <th style="text-align: left;">Min</th>
+                                <th style="text-align: left;">Max</th>
+                                <th style="text-align: left;">Avg</th>
                             </tr>
                         </thead>
                         <tbody>
