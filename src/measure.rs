@@ -107,6 +107,24 @@ pub fn get_latest_value(conn: &PgConnection) -> Value {
     m.unwrap()
 }
 
+pub fn get_average_values(conn: &PgConnection) -> Measurement {
+    use crate::schema::values::dsl::*;
+    use diesel::dsl::avg;
+
+    let temp = values.select(avg(temperature)).get_result(&conn).unwrap();
+    let hum = values.select(avg(humidity)).get_result(&conn).unwrap();
+    let pres = values.select(avg(pressure)).get_result(&conn).unwrap();
+
+    let m = Measurement {
+        humidity: hum,
+        temperature: temp,
+        pressure: pres,
+        time: "".to_string()
+    };
+
+    m
+}
+
 fn get_naive_datetime() -> NaiveDateTime {
     let datetime: DateTime<Local> = Local::now();
     let date_string = datetime.format("%Y-%m-%d %H:%M:%S").to_string();
