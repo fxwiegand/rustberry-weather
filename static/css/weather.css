@@ -35,3 +35,21 @@
 sup {
     top: -.3em;
 }
+
+table.values {
+    font-size: 1.5rem;
+}
+
+table.context {
+    font-size: 1.2rem;
+}
+
+
+table td {
+    padding-right: 1rem;
+}
+
+table th {
+    text-align: center;
+    padding-right: .5rem;
+}

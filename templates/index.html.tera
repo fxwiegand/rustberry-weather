@@ -18,51 +18,87 @@
             <div class="row main">
 
                 <div class="col-3 sidebar padding">
-                    <h1>
-                        <i class="fas fa-thermometer-half"></i>
-                        <span id="current_temp">
-                        </span><sup>&deg;C</sup>
-                    </h1>
-                    <h1>
-                        <i class="fas fa-tint"></i>
-                        <span id="current_hmdt"></span>
-                        g/m<sup>3</sup>
-                    </h1>
-                    <h1>
-                        <i class="fas fa-tachometer-alt"></i>
-                        <span id="current_pressure"></span>
-                        hPa
-                    </h1>
-                    <h3>
-                        Teilweise bewölkt
-                        <i class="fas fa-cloud-sun"></i>
-                    </h3>
-                    <div class="row margin-top">
-                        <div class="col-6">
-                            <h3>
-                                <i class="fas fa-temperature-high"></i>
-                                4<sup>&deg;C</sup>
-                            </h3>
-                            <p>14 Uhr</p>
-                        </div>
-                        <div class="col-6">
-                            <h3>
-                                <i class="fas fa-temperature-low"></i>
-                                1<sup>&deg;C</sup>
-                            </h3>
-                            <p>7 Uhr</p>
-                        </div>
-                    </div>
-                    <div class="margin-top">
-                        <h5>
-                            <i class="far fa-calendar-alt"></i>
-                            <span id="timestamp">5. Mai 2020 10:45</span>
-                        </h5>
-                        <h5>
-                            <i class="fas fa-map-marker-alt"></i>
-                            Senden, NRW, Deutschland
-                        </h5>
-                    </div>
+                    <table class="values">
+                        <tr>
+                            <th>
+                                <i class="fas fa-thermometer-half"></i>
+                            </th>
+                            <td>
+                                <span id="current_temp">22,5</span>
+                                <sup>&deg;C</sup>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <i class="fas fa-tint"></i>
+                            </th>
+                            <td>
+                                <span id="current_hmdt">40,0</span>
+                                g/m<sup>3</sup>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <i class="fas fa-tachometer-alt"></i>
+                            </th>
+                            <td>
+                                <span id="current_pressure"></span>
+                                hPa
+                            </td>
+                        </tr>
+                    </table>
+
+                    <table class="values" style="margin-top: 2rem;">
+                        <tr>
+                            <th>
+                                <i class="fas fa-thermometer-full"></i>
+                            </th>
+                            <td>
+                                <span id="max_temp">22,5</span>
+                                <sup>&deg;C</sup>
+                            </td>
+                            <td>14 Uhr</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <i class="fas fa-thermometer-empty"></i>
+                            </th>
+                            <td>
+                                <span id="min_temp">22,5</span>
+                                <sup>&deg;C</sup>
+                            </td>
+                            <td>14 Uhr</td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <i class="fas fa-thermometer-half"></i>
+                            </th>
+                            <td>
+                                <span id="average_temp">22,5</span>
+                                <sup>&deg;C</sup>
+                            </td>
+                            <td>14 Uhr</td>
+                        </tr>
+                    </table>
+
+                    <table class="context" style="margin-top: 2rem;">
+                        <tr>
+                            <th>
+                                <i class="far fa-calendar-alt"></i>
+                            </th>
+                            <td>
+                                <span id="timestamp">5. Mai 2020 10:45</span>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th>
+                                <i class="fas fa-map-marker-alt"></i>
+                            </th>
+                            <td>
+                                <span id="location">Senden, NRW, Deutschland</span>
+                            </td>
+                        </tr>
+                    </table>
                 </div>
 
                 <div class="col-9">
