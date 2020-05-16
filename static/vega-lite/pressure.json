@@ -30,6 +30,9 @@
       "type": "quantitative",
       "axis": {
         "title": "Luftdruck"
+      },
+      "scale": {
+        "domain": [950,1050]
       }
     }
   },
