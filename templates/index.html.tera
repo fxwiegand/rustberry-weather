@@ -76,16 +76,13 @@
                     </div>
 
                     <div class="row min">
-                        <div class="col-4 padding border-top border-right">
+                        <div class="col-6 padding border-top border-right">
                             <h2 class="text-center">Luftdruck</h2>
                             <div id="press-vis" style="width: 100%; height: 90%"></div>
                         </div>
-                        <div class="col-4 padding border-top border-right">
+                        <div class="col-6 padding border-top border-right">
                             <h2 class="text-center">Luftfeuchtigkeit</h2>
                             <div id="humi-vis" style="width: 100%; height: 90%"></div>
-                        </div>
-                        <div class="col-4 padding border-top">
-                            <h2 class="text-center">Wind</h2>
                         </div>
                     </div>
 
