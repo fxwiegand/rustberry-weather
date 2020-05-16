@@ -9,6 +9,7 @@ extern crate rocket_contrib;
 extern crate clap;
 extern crate tera;
 extern crate dotenv;
+extern crate average;
 
 use bme280::BME280;
 use rocket_contrib::serve::StaticFiles;

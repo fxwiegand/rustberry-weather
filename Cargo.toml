@@ -18,6 +18,7 @@ clap = "2.33.0"
 serde = { version = "1.0.110", features = ["derive"] }
 diesel = { version = "1.4.4", features = ["postgres","numeric","extras"] }
 dotenv = "0.15.0"
+average = "0.10.4"
 
 [dependencies.bigdecimal]
 version = "0.0.15"

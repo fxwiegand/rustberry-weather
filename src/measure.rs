@@ -10,8 +10,9 @@ use diesel::pg::PgConnection;
 use dotenv::dotenv;
 use std::env;
 use crate::models::{NewValue, Value};
-use bigdecimal::FromPrimitive;
+use bigdecimal::{FromPrimitive, ToPrimitive};
 use chrono::format::Numeric::Timestamp;
+use average::{Mean, Estimate};
 
 #[derive(Serialize, Clone, Debug)]
 pub(crate) struct Measurement {
@@ -111,14 +112,26 @@ pub fn get_average_values(conn: &PgConnection) -> Measurement {
     use crate::schema::values::dsl::*;
     use diesel::dsl::avg;
 
-    let temp = values.select(avg(temperature)).get_result(&conn).unwrap();
-    let hum = values.select(avg(humidity)).get_result(&conn).unwrap();
-    let pres = values.select(avg(pressure)).get_result(&conn).unwrap();
+    let all_values = get_values(conn, 7);
+
+    let mut temp: Mean = Mean::new();
+    let mut hum: Mean = Mean::new();
+    let mut pres: Mean = Mean::new();
+
+    for v in all_values {
+        temp.add(v.temperature.to_f64().unwrap());
+        hum.add(v.humidity.to_f64().unwrap());
+        pres.add(v.pressure.to_f64().unwrap());
+    }
+
+    let t = temp.mean();
+    let p = pres.mean();
+    let h = hum.mean();
 
     let m = Measurement {
-        humidity: hum,
-        temperature: temp,
-        pressure: pres,
+        humidity: h as f32,
+        temperature: t as f32,
+        pressure: p as f32,
         time: "".to_string()
     };
 
