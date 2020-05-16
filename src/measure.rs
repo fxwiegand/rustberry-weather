@@ -15,7 +15,7 @@ use chrono::format::Numeric::Timestamp;
 use average::{Mean, Estimate};
 
 #[derive(Serialize, Clone, Debug)]
-pub(crate) struct Measurement {
+pub struct Measurement {
     humidity: f32,
     temperature: f32,
     pressure: f32,
