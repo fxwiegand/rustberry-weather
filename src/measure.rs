@@ -111,9 +111,9 @@ pub fn get_average_values(conn: &PgConnection) -> Measurement {
     use crate::schema::values::dsl::*;
     use diesel::dsl::avg;
 
-    let temp = values.select(avg(temperature)).get_result(&conn)?;
-    let hum = values.select(avg(humidity)).get_result(&conn)?;
-    let pres = values.select(avg(pressure)).get_result(&conn)?;
+    let temp = values.select(avg(temperature)).get_result(&conn).unwrap();
+    let hum = values.select(avg(humidity)).get_result(&conn).unwrap();
+    let pres = values.select(avg(pressure)).get_result(&conn).unwrap();
 
     let m = Measurement {
         humidity: hum,
