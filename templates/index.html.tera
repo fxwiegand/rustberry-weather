@@ -60,8 +60,8 @@
                         <tbody>
                             <tr>
                                 <th><i class="fas fa-clock"></i></th>
-                                <td><span id="min_clock">22,5</span>5 Uhr</td>
-                                <td><span id="max_clock">22,5</span>14 Uhr</td>
+                                <td><span id="min_clock">5 Uhr</span></td>
+                                <td><span id="max_clock">14 Uhr</span></td>
                                 <td></td>
                             </tr>
                             <tr>
