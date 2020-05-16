@@ -66,21 +66,21 @@
                             </tr>
                             <tr>
                                 <th><i class="fas fa-thermometer-half"></i></th>
-                                <td><span id="min_temp">22,5</span><sup>&deg;C</sup></td>
-                                <td><span id="max_temp">22,5</span><sup>&deg;C</sup></td>
-                                <td><span id="avg_temp">22,5</span><sup>&deg;C</sup></td>
+                                <td><span id="min_temp">22,5</span> <sup>&deg;C</sup></td>
+                                <td><span id="max_temp">22,5</span> <sup>&deg;C</sup></td>
+                                <td><span id="avg_temp">22,5</span> <sup>&deg;C</sup></td>
                             </tr>
                             <tr>
                                 <th><i class="fas fa-tint"></i></th>
-                                <td><span id="min_hmdt">40,0</span>g/m<sup>3</sup></td>
-                                <td><span id="max_hmdt">40,0</span>g/m<sup>3</sup></td>
-                                <td><span id="avg_hmdt">40,0</span>g/m<sup>3</sup></td>
+                                <td><span id="min_hmdt">40,0</span> g/m<sup>3</sup></td>
+                                <td><span id="max_hmdt">40,0</span> g/m<sup>3</sup></td>
+                                <td><span id="avg_hmdt">40,0</span> g/m<sup>3</sup></td>
                             </tr>
                             <tr>
                                 <th><i class="fas fa-tachometer-alt"></i></th>
-                                <td><span id="min_press">1010</span>hPa</td>
-                                <td><span id="max_press">1025</span>hPa</td>
-                                <td><span id="avg_press">1018</span>hPa</td>
+                                <td><span id="min_press">1010</span> hPa</td>
+                                <td><span id="max_press">1025</span> hPa</td>
+                                <td><span id="avg_press">1018</span> hPa</td>
                             </tr>
                         </tbody>
                     </table>
