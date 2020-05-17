@@ -1,6 +1,4 @@
-use chrono::offset::Utc;
-use chrono::{Local, DateTime, Datelike, NaiveDateTime};
-use chrono_locale::LocaleDate;
+use chrono::{Local, DateTime, NaiveDateTime};
 use hal::{Delay, I2cdev};
 use bme280::BME280;
 use rand::Rng;
@@ -10,8 +8,7 @@ use diesel::pg::PgConnection;
 use dotenv::dotenv;
 use std::env;
 use crate::models::{NewValue, Value};
-use bigdecimal::{FromPrimitive, ToPrimitive};
-use chrono::format::Numeric::Timestamp;
+use bigdecimal::{ToPrimitive};
 use average::{Mean, Estimate};
 
 #[derive(Serialize, Clone, Debug)]
@@ -22,7 +19,7 @@ pub struct Measurement {
     time: String,
 }
 
-fn bme280_mockup() -> Measurement {
+/*fn bme280_mockup() -> Measurement {
     let mut rng = rand::thread_rng();
     let h = rng.gen_range(30.0, 60.0) as f32;
     let t = rng.gen_range(0.0, 30.0) as f32;
@@ -36,7 +33,7 @@ fn bme280_mockup() -> Measurement {
     };
 
     m1
-}
+}*/
 
 pub fn measure() {
     let conn = establish_connection();
@@ -109,8 +106,6 @@ pub fn get_latest_value(conn: &PgConnection) -> Value {
 }
 
 pub fn get_average_values(conn: &PgConnection) -> Measurement {
-    use crate::schema::values::dsl::*;
-
     let all_values = get_values(conn, 7);
 
     let mut temp: Mean = Mean::new();
@@ -138,8 +133,6 @@ pub fn get_average_values(conn: &PgConnection) -> Measurement {
 }
 
 pub fn get_max_values(conn: &PgConnection) -> Measurement {
-    use crate::schema::values::dsl::*;
-
     let all_values = get_values(conn, 7);
 
     let mut min_temp = 0.0;
@@ -170,8 +163,6 @@ pub fn get_max_values(conn: &PgConnection) -> Measurement {
 }
 
 pub fn get_min_values(conn: &PgConnection) -> Measurement {
-    use crate::schema::values::dsl::*;
-
     let all_values = get_values(conn, 7);
 
     let mut min_temp = 100.0;

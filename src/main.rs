@@ -11,12 +11,11 @@ extern crate tera;
 extern crate dotenv;
 extern crate average;
 
-use bme280::BME280;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use rocket_contrib::json::Json;
-use clap::{App, SubCommand, ArgMatches};
-use tera::{Tera, Context};
+use clap::{App, SubCommand};
+use tera;
 use std::collections::HashMap;
 use std::{thread,time};
 use measure::{Measurement, measure};
@@ -66,7 +65,7 @@ fn max() -> Json<Measurement> {
 
 #[get("/")]
 fn index() -> Template {
-    let mut context: HashMap<&str , Vec<()>> = HashMap::new();
+    let context: HashMap<&str , Vec<()>> = HashMap::new();
     //context.insert();
 
     Template::render("index", &context)
