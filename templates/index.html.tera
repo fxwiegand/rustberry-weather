@@ -60,12 +60,6 @@
                         </thead>
                         <tbody>
                             <tr>
-                                <th><i class="fas fa-clock"></i></th>
-                                <td><span id="min_clock">5 Uhr</span></td>
-                                <td><span id="max_clock">14 Uhr</span></td>
-                                <td></td>
-                            </tr>
-                            <tr>
                                 <th><i class="fas fa-thermometer-half"></i></th>
                                 <td><span id="min_temp">22,5</span></td>
                                 <td><span id="max_temp">22,5</span></td>
