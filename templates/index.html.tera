@@ -138,18 +138,21 @@
 
                 let hu = Number(avg.humidity);
                 let hur = hu.toFixed(2);
+                let hurn = Number(hur);
 
                 let pr = Number(avg.pressure);
                 let prr = pr.toFixed(2);
+                let prrn = Number(prr);
 
                 let te = Number(avg.temperature);
                 let ter = te.toFixed(2);
+                let tern = Number(ter);
 
-                $('#avg_hmdt').html(hur);
-                $('#avg_press').html(prr);
-                $('#avg_temp').html(ter);
+                $('#avg_hmdt').html(hurn);
+                $('#avg_press').html(prrn);
+                $('#avg_temp').html(tern);
                 let timestamp = new Date(data.timestamp);
-                $('#timestamp').html(timestamp);
+                $('#timestamp').html(timestamp.toUTCString());
             }
 
             async function buildVega() {
