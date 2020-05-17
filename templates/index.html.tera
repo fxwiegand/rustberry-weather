@@ -131,7 +131,7 @@
                 await buildVega();
             }
 
-            async function setValues(data,avg) {
+            async function setValues(data,avg, min, max) {
                 $('#current_temp').html(data.temperature);
                 $('#current_hmdt').html(data.humidity);
                 $('#current_pressure').html(data.pressure);
@@ -148,9 +148,42 @@
                 let ter = te.toFixed(2);
                 let tern = Number(ter);
 
+                let hux = Number(min.humidity);
+                let hurx = hux.toFixed(2);
+                let hurnx = Number(hurx);
+
+                let prx = Number(min.pressure);
+                let prrx = prx.toFixed(2);
+                let prrnx = Number(prrx);
+
+                let tex = Number(min.temperature);
+                let terx = tex.toFixed(2);
+                let ternx = Number(terx);
+
+                let huy = Number(max.humidity);
+                let hury = huy.toFixed(2);
+                let hurny = Number(hury);
+
+                let pry = Number(max.pressure);
+                let prry = pry.toFixed(2);
+                let prrny = Number(prry);
+
+                let tey = Number(max.temperature);
+                let tery = tey.toFixed(2);
+                let terny = Number(tery);
+
                 $('#avg_hmdt').html(hurn);
                 $('#avg_press').html(prrn);
                 $('#avg_temp').html(tern);
+
+                $('#min_hmdt').html(hurnx);
+                $('#min_press').html(prrnx);
+                $('#min_temp').html(ternx);
+
+                $('#max_hmdt').html(hurny);
+                $('#max_press').html(prrny);
+                $('#max_temp').html(terny);
+
                 let timestamp = new Date(data.timestamp);
                 timestamp.setHours(timestamp.getHours() - 2);
                 $('#timestamp').html(timestamp.toLocaleDateString("de-DE") + ' ' + timestamp.toLocaleTimeString("de-DE"));
@@ -167,11 +200,11 @@
                 vgh = vgh.view.insert('humidity', measurements);
                 vgp = vgp.view.insert('pressure', measurements);
 
-                setValues(fetchMeasurements(),fetchAverageMeasurements());
+                await setValues(await fetchMeasurements(),await fetchAverageMeasurements(),await fetchMinMeasurements(), await fetchMaxMeasurements());
             }
 
             window.setInterval(async function(){
-                await setValues(await fetchMeasurements(), await fetchAverageMeasurements());
+                await setValues(await fetchMeasurements(), await fetchAverageMeasurements(), await fetchMinMeasurements(), await fetchMaxMeasurements());
             }, 5000);
 
             async function fetchLatestMeasurements() {
@@ -181,6 +214,16 @@
 
             async function fetchAverageMeasurements() {
                 const rs = await fetch('/api/v1/average/');
+                return await rs.json();
+            }
+
+            async function fetchMinMeasurements() {
+                const rs = await fetch('/api/v1/min/');
+                return await rs.json();
+            }
+
+            async function fetchMaxMeasurements() {
+                const rs = await fetch('/api/v1/max/');
                 return await rs.json();
             }
 
