@@ -152,7 +152,8 @@
                 $('#avg_press').html(prrn);
                 $('#avg_temp').html(tern);
                 let timestamp = new Date(data.timestamp);
-                $('#timestamp').html(timestamp.toUTCString());
+                timestamp.setHours(timestamp.getHours() - 2);
+                $('#timestamp').html(timestamp.toLocaleDateString("de_DE"));
             }
 
             async function buildVega() {
