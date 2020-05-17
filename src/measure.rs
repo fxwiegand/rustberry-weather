@@ -142,9 +142,9 @@ pub fn get_max_values(conn: &PgConnection) -> Measurement {
 
     let all_values = get_values(conn, 7);
 
-    let mut min_temp = 100.0;
-    let mut min_humi = 100.0;
-    let mut min_pressure = 10000.0;
+    let mut min_temp = 0.0;
+    let mut min_humi = 0.0;
+    let mut min_pressure = 0.0;
 
 
     for v in all_values {
