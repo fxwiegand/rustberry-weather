@@ -137,13 +137,16 @@
                 await buildVega();
             }
 
-            function setValues(data) {
+            function setValues(data,avg) {
                 $('#current_temp').html(data.temperature);
                 $('#current_hmdt').html(data.humidity);
                 $('#current_pressure').html(data.pressure);
+                $('#avg_hmdt').html(avg.humidity);
+                $('#avg_press').html(avg.pressure);
+                $('#avg_temp').html(avg.temperature);
                 var timestamp = new Date(data.timestamp);
-                var date_loc = timestamp.toLocaleDateString("de-DE");
-                var time_loc = timestamp.toLocaleTimeString("de-DE");
+                var date_loc = timestamp.toDateString();
+                var time_loc = timestamp.toTimeString();
                 $('#timestamp').html(date_loc + ' ' + time_loc);
             }
 
@@ -158,7 +161,7 @@
                 vgh = vgh.view.insert('humidity', measurements);
                 vgp = vgp.view.insert('pressure', measurements);
 
-                setValues(fetchMeasurements());
+                setValues(fetchMeasurements(),fetchAverageMeasurements());
             }
 
             window.setInterval(async function(){
@@ -167,6 +170,12 @@
 
             async function fetchLatestMeasurements() {
                 const rs = await fetch('/api/v1/interval/7');
+                const result = await rs.json();
+                return result;
+            }
+
+            async function fetchAverageMeasurements() {
+                const rs = await fetch('/api/v1/average');
                 const result = await rs.json();
                 return result;
             }
