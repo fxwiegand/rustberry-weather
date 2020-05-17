@@ -22,6 +22,7 @@ A weather station for the raspberry pi written in rust
 * [Rocket](https://rocket.rs) - A web framework for Rust
 * [Tera](https://tera.netlify.app) - A powerful, easy to use template engine for Rust
 * [bme280](https://github.com/uber-foo/bme280-rs) - A rust device driver for the Bosch BME280
+* [Vega/Vega-Lite](https://vega.github.io) - A visualization grammar
 
 ## Authors
 
