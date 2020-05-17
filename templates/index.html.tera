@@ -153,7 +153,7 @@
                 $('#avg_temp').html(tern);
                 let timestamp = new Date(data.timestamp);
                 timestamp.setHours(timestamp.getHours() - 2);
-                $('#timestamp').html(timestamp.toLocaleDateString("de-DE"));
+                $('#timestamp').html(timestamp.toLocaleDateString("de-DE") + ' ' + timestamp.toLocaleTimeString("de-DE"));
             }
 
             async function buildVega() {
