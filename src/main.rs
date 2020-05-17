@@ -15,7 +15,6 @@ use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
 use rocket_contrib::json::Json;
 use clap::{App, SubCommand};
-use tera;
 use std::collections::HashMap;
 use std::{thread,time};
 use measure::{Measurement, measure};

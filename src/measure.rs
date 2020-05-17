@@ -1,7 +1,7 @@
 use chrono::{Local, DateTime, NaiveDateTime};
 use hal::{Delay, I2cdev};
 use bme280::BME280;
-use rand::Rng;
+//use rand::Rng;
 use diesel;
 use diesel::prelude::*;
 use diesel::pg::PgConnection;
