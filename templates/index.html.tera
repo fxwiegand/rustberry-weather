@@ -141,9 +141,19 @@
                 $('#current_temp').html(data.temperature);
                 $('#current_hmdt').html(data.humidity);
                 $('#current_pressure').html(data.pressure);
-                $('#avg_hmdt').html(avg.humidity);
-                $('#avg_press').html(avg.pressure);
-                $('#avg_temp').html(avg.temperature);
+
+                let hu = Number(avg.humidity);
+                let hur = hu.toFixed(2);
+
+                let pr = Number(avg.pressure);
+                let prr = pr.toFixed(2);
+
+                let te = Number(avg.temperature);
+                let ter = te.toFixed(2);
+
+                $('#avg_hmdt').html(hur);
+                $('#avg_press').html(prr);
+                $('#avg_temp').html(ter);
                 let timestamp = new Date(data.timestamp);
                 $('#timestamp').html(timestamp);
             }
