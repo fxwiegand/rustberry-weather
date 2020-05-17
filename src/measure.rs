@@ -110,7 +110,6 @@ pub fn get_latest_value(conn: &PgConnection) -> Value {
 
 pub fn get_average_values(conn: &PgConnection) -> Measurement {
     use crate::schema::values::dsl::*;
-    use diesel::dsl::avg;
 
     let all_values = get_values(conn, 7);
 
@@ -132,6 +131,70 @@ pub fn get_average_values(conn: &PgConnection) -> Measurement {
         humidity: h as f32,
         temperature: t as f32,
         pressure: p as f32,
+        time: "".to_string()
+    };
+
+    m
+}
+
+pub fn get_max_values(conn: &PgConnection) -> Measurement {
+    use crate::schema::values::dsl::*;
+
+    let all_values = get_values(conn, 7);
+
+    let mut min_temp = 100.0;
+    let mut min_humi = 100.0;
+    let mut min_pressure = 10000.0;
+
+
+    for v in all_values {
+        if v.temperature.to_f64().unwrap() > min_temp {
+            min_temp = v.temperature.to_f64().unwrap();
+        }
+        if v.pressure.to_f64().unwrap() > min_pressure {
+            min_pressure= v.pressure.to_f64().unwrap();
+        }
+        if v.humidity.to_f64().unwrap() > min_humi {
+            min_humi = v.humidity.to_f64().unwrap();
+        }
+    }
+
+    let m = Measurement {
+        humidity: min_humi as f32,
+        temperature: min_temp as f32,
+        pressure: min_pressure as f32,
+        time: "".to_string()
+    };
+
+    m
+}
+
+pub fn get_min_values(conn: &PgConnection) -> Measurement {
+    use crate::schema::values::dsl::*;
+
+    let all_values = get_values(conn, 7);
+
+    let mut min_temp = 100.0;
+    let mut min_humi = 100.0;
+    let mut min_pressure = 10000.0;
+
+
+    for v in all_values {
+        if v.temperature.to_f64().unwrap() < min_temp {
+            min_temp = v.temperature.to_f64().unwrap();
+        }
+        if v.pressure.to_f64().unwrap() < min_pressure {
+            min_pressure= v.pressure.to_f64().unwrap();
+        }
+        if v.humidity.to_f64().unwrap() < min_humi {
+            min_humi = v.humidity.to_f64().unwrap();
+        }
+    }
+
+    let m = Measurement {
+        humidity: min_humi as f32,
+        temperature: min_temp as f32,
+        pressure: min_pressure as f32,
         time: "".to_string()
     };
 
