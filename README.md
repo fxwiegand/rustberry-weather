@@ -14,6 +14,7 @@ A weather station for the raspberry pi written in rust
 * Clone the repository
 * Configure the [Rocket.toml](Rocket.toml) so the website is running on your desired adress, port etc.
 * Setup an [Postgres](https://www.postgresql.org) database and export your database url with `export DATABASE_URL=postgres://username:password@domain:5432/yourdatabase`
+* Install diesel_cli with `cargo install diesel_cli` or `cargo install diesel_cli --no-default-features --features postgres` if you only wish to use it with PostgreSQL 
 * Either grant yourself access to `/dev/i2c-1/` for letting the program connect to the sensor to run with `cargo run server` or build the executable with `cargo build --release` and run as sudo with `sudo target/release/rustberry-weather server`
 
 
