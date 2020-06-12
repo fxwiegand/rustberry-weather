@@ -8,8 +8,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - name: Install libpq-dev
-        run: sudo apt install libpq-dev
+        name: Checkout repository
+      - name: Install dependencies
+        run: sudo apt install libgl-dev libglu-dev libglib2.0-dev libsm-dev libxrender-dev libfontconfig1-dev libxext-dev
       - uses: actions-rs/toolchain@v1
         name: Setup toolchain
         with:
