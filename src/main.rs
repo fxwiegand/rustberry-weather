@@ -1,30 +1,36 @@
 #![feature(proc_macro_hygiene, decl_macro)]
 
-#[macro_use] extern crate rocket;
-#[macro_use] extern crate serde;
-#[macro_use] extern crate diesel;
+#[macro_use]
+extern crate rocket;
+#[macro_use]
+extern crate serde;
+#[macro_use]
+extern crate diesel;
 
+extern crate average;
+extern crate clap;
+extern crate dotenv;
 extern crate linux_embedded_hal as hal;
 extern crate rocket_contrib;
-extern crate clap;
 extern crate tera;
-extern crate dotenv;
-extern crate average;
 
+use crate::measure::{
+    establish_connection, get_average_values, get_latest_value, get_max_values, get_min_values,
+    get_values,
+};
+use crate::models::Value;
+use clap::{App, SubCommand};
+use measure::{measure, Measurement};
+use rocket_contrib::json::Json;
 use rocket_contrib::serve::StaticFiles;
 use rocket_contrib::templates::Template;
-use rocket_contrib::json::Json;
-use clap::{App, SubCommand};
 use std::collections::HashMap;
-use std::{thread,time};
-use measure::{Measurement, measure};
-use crate::measure::{get_values, get_latest_value, establish_connection, get_average_values, get_min_values, get_max_values};
-use crate::models::Value;
+use std::{thread, time};
 
 mod measure;
 
-pub mod schema;
 pub mod models;
+pub mod schema;
 
 #[get("/current")]
 fn current() -> Json<Value> {
@@ -61,10 +67,9 @@ fn max() -> Json<Measurement> {
     Json(response)
 }
 
-
 #[get("/")]
 fn index() -> Template {
-    let context: HashMap<&str , Vec<()>> = HashMap::new();
+    let context: HashMap<&str, Vec<()>> = HashMap::new();
     //context.insert();
 
     Template::render("index", &context)
@@ -75,10 +80,12 @@ fn main() {
         .version("1.0")
         .author("Felix W. <fxwiegand@wgdnet.de>")
         .about("a weather station for the raspberry pi in rust")
-        .subcommand(SubCommand::with_name("server")
-            .about("starts server")
-            .version("1.0")
-            .author("Felix W. <fxwiegand@wgdnet.de>"))
+        .subcommand(
+            SubCommand::with_name("server")
+                .about("starts server")
+                .version("1.0")
+                .author("Felix W. <fxwiegand@wgdnet.de>"),
+        )
         .get_matches();
 
     match matches.subcommand_name() {
@@ -92,15 +99,14 @@ fn main() {
                 }
             });
 
-
             rocket::ignite()
-                .mount("/",  StaticFiles::from("static"))
+                .mount("/", StaticFiles::from("static"))
                 .mount("/", routes![index])
-                .mount("/api/v1", routes![current,interval, average, min, max])
+                .mount("/api/v1", routes![current, interval, average, min, max])
                 .attach(Template::fairing())
                 .launch();
-        },
-        None        => println!("Try using a subcommand. Type help for more."),
-        _           => unreachable!(), // Assuming you've listed all direct children above, this is unreachable
+        }
+        None => println!("Try using a subcommand. Type help for more."),
+        _ => unreachable!(), // Assuming you've listed all direct children above, this is unreachable
     }
 }

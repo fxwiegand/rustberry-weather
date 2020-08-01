@@ -1,15 +1,15 @@
-use chrono::{Local, DateTime, NaiveDateTime};
-use hal::{Delay, I2cdev};
 use bme280::BME280;
+use chrono::{DateTime, Local, NaiveDateTime};
+use hal::{Delay, I2cdev};
 //use rand::Rng;
+use crate::models::{NewValue, Value};
+use average::{Estimate, Mean};
+use bigdecimal::ToPrimitive;
 use diesel;
-use diesel::prelude::*;
 use diesel::pg::PgConnection;
+use diesel::prelude::*;
 use dotenv::dotenv;
 use std::env;
-use crate::models::{NewValue, Value};
-use bigdecimal::{ToPrimitive};
-use average::{Mean, Estimate};
 
 #[derive(Serialize, Clone, Debug)]
 pub struct Measurement {
@@ -46,31 +46,38 @@ pub fn measure() {
 
     let naive_datetime = get_naive_datetime();
 
-    create_value(&conn, naive_datetime, measurements.temperature,measurements.pressure/100 as f32, measurements.humidity);
+    create_value(
+        &conn,
+        naive_datetime,
+        measurements.temperature,
+        measurements.pressure / 100 as f32,
+        measurements.humidity,
+    );
 }
 
 pub fn establish_connection() -> PgConnection {
     dotenv().ok();
 
-    let database_url = env::var("DATABASE_URL")
-        .expect("DATABASE_URL must be set");
-    PgConnection::establish(&database_url)
-        .expect(&format!("Error connecting to {}", database_url))
+    let database_url = env::var("DATABASE_URL").expect("DATABASE_URL must be set");
+    PgConnection::establish(&database_url).expect(&format!("Error connecting to {}", database_url))
 }
 
-pub fn create_value(conn: &PgConnection,
-                    timestamp: chrono::NaiveDateTime, temperature: f32,
-                    pressure: f32, humidity: f32) -> Value {
+pub fn create_value(
+    conn: &PgConnection,
+    timestamp: chrono::NaiveDateTime,
+    temperature: f32,
+    pressure: f32,
+    humidity: f32,
+) -> Value {
     use crate::schema::values;
 
     let new_value = NewValue {
         timestamp: timestamp,
         temperature: bigdecimal::FromPrimitive::from_f32(temperature).unwrap(),
-        pressure:bigdecimal::FromPrimitive::from_f32(pressure).unwrap(),
+        pressure: bigdecimal::FromPrimitive::from_f32(pressure).unwrap(),
         humidity: bigdecimal::FromPrimitive::from_f32(humidity).unwrap(),
     };
 
-    
     diesel::insert_into(values::table)
         .values(&new_value)
         .get_result(conn)
@@ -126,7 +133,7 @@ pub fn get_average_values(conn: &PgConnection) -> Measurement {
         humidity: h as f32,
         temperature: t as f32,
         pressure: p as f32,
-        time: "".to_string()
+        time: "".to_string(),
     };
 
     m
@@ -139,13 +146,12 @@ pub fn get_max_values(conn: &PgConnection) -> Measurement {
     let mut min_humi = 0.0;
     let mut min_pressure = 0.0;
 
-
     for v in all_values {
         if v.temperature.to_f64().unwrap() > min_temp {
             min_temp = v.temperature.to_f64().unwrap();
         }
         if v.pressure.to_f64().unwrap() > min_pressure {
-            min_pressure= v.pressure.to_f64().unwrap();
+            min_pressure = v.pressure.to_f64().unwrap();
         }
         if v.humidity.to_f64().unwrap() > min_humi {
             min_humi = v.humidity.to_f64().unwrap();
@@ -156,7 +162,7 @@ pub fn get_max_values(conn: &PgConnection) -> Measurement {
         humidity: min_humi as f32,
         temperature: min_temp as f32,
         pressure: min_pressure as f32,
-        time: "".to_string()
+        time: "".to_string(),
     };
 
     m
@@ -169,13 +175,12 @@ pub fn get_min_values(conn: &PgConnection) -> Measurement {
     let mut min_humi = 100.0;
     let mut min_pressure = 10000.0;
 
-
     for v in all_values {
         if v.temperature.to_f64().unwrap() < min_temp {
             min_temp = v.temperature.to_f64().unwrap();
         }
         if v.pressure.to_f64().unwrap() < min_pressure {
-            min_pressure= v.pressure.to_f64().unwrap();
+            min_pressure = v.pressure.to_f64().unwrap();
         }
         if v.humidity.to_f64().unwrap() < min_humi {
             min_humi = v.humidity.to_f64().unwrap();
@@ -186,7 +191,7 @@ pub fn get_min_values(conn: &PgConnection) -> Measurement {
         humidity: min_humi as f32,
         temperature: min_temp as f32,
         pressure: min_pressure as f32,
-        time: "".to_string()
+        time: "".to_string(),
     };
 
     m

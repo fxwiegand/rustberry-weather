@@ -1,7 +1,6 @@
-use chrono::{NaiveDateTime};
 use crate::schema::values;
 use bigdecimal::BigDecimal;
-
+use chrono::NaiveDateTime;
 
 #[derive(Queryable, Debug, Serialize)]
 pub struct Value {
